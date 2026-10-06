@@ -19,7 +19,23 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"all": true
+			"all": true,
+			"style": {
+				"useNamingConvention": {
+					"level": "warn",
+					"options": {
+						"conventions": [
+							{
+								"selector": {
+									"kind": "objectLiteralProperty"
+								},
+								"match": "(?:GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)|(.+)",
+								"formats": ["camelCase"]
+							}
+						]
+					}
+				}
+			}
 		}
 	},
 	"javascript": {
