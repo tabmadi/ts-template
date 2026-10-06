@@ -13,20 +13,17 @@
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"assist": {
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"preset": "all",
+			"preset": "recommended",
 			"style": {
+				"noNonNullAssertion": "error",
+				"useConst": "error",
+				"useImportType": "error",
 				"useNamingConvention": {
-					"level": "warn",
+					"level": "error",
 					"options": {
 						"conventions": [
 							{
@@ -40,9 +37,12 @@
 					}
 				}
 			},
-			"correctness": {
-				"noUnresolvedImports": "off",
-				"noNodejsModules": "off"
+			"suspicious": {
+				"noExplicitAny": "error",
+				"noConsole": {
+					"level": "error",
+					"options": { "allow": ["error", "warn"] }
+				}
 			}
 		}
 	},
@@ -51,18 +51,5 @@
 		"formatter": {
 			"quoteStyle": "double"
 		}
-	},
-	"overrides": [
-		{
-			"includes": ["src/__tests__/**"],
-			"linter": {
-				"rules": {
-					"style": {
-						"noMagicNumbers": "off",
-						"noProcessEnv": "off"
-					}
-				}
-			}
-		}
-	]
+	}
 }
