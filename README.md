@@ -21,13 +21,15 @@ This template comes pre-configured with:
 - 📋 **Conventional Commits**: Cocogitto (cog) for commit message validation and changelog generation
 - 📝 **GitHub Templates**: CODE_OF_CONDUCT.md, SECURITY.md, and LICENSE included
 - ⚡ **mise**: Pinned tool versions and tasks with [mise](https://mise.jdx.dev)
+- 🔐 **Secret Scanning**: [gitleaks](https://github.com/gitleaks/gitleaks) on every commit and in CI
+- 🤖 **CI**: A GitHub Actions workflow that runs the same `mise run ci` as the pre-push hook
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - [mise](https://mise.jdx.dev): A multi-language version manager and task runner. It installs every other tool
-  (Bun, Biome, Cocogitto, Lefthook) at the versions pinned in [.mise.toml](.mise.toml).
+  (Bun, Biome, Cocogitto, Lefthook, gitleaks) at the versions pinned in [.mise.toml](.mise.toml).
 
 ### Installation
 
@@ -61,15 +63,16 @@ mise run start
 Tasks live in [.mise.toml](.mise.toml); `mise tasks` lists them. The `package.json` scripts delegate to them, so
 `bun run lint` and `mise run lint` are the same.
 
-| Task              | Description                                 |
-|-------------------|---------------------------------------------|
-| `mise run setup`  | Install dependencies and Git hooks          |
-| `mise run start`  | Start the production server                 |
-| `mise run dev`    | Start development server with file watching |
-| `mise run test`   | Run the tests                               |
-| `mise run lint`   | Biome (warnings fail) and `tsc --noEmit`    |
-| `mise run format` | Format code with Biome                      |
-| `mise run check`  | Lint and test: run it before you finish     |
+| Task              | Description                                         |
+|-------------------|-----------------------------------------------------|
+| `mise run setup`  | Install dependencies and Git hooks                  |
+| `mise run start`  | Start the production server                         |
+| `mise run dev`    | Start development server with file watching         |
+| `mise run test`   | Run the tests                                       |
+| `mise run lint`   | Biome (warnings fail), `tsc --noEmit`, and gitleaks |
+| `mise run format` | Format code with Biome                              |
+| `mise run check`  | Lint and test: run it before you finish             |
+| `mise run ci`     | Install the locked dependencies, then check         |
 
 ### 🧹 Code Quality
 
@@ -91,9 +94,9 @@ This template includes **Lefthook** for automated Git hooks
 
 Git hooks will automatically run on:
 
-- **Pre-commit**: Lint and type-check
+- **Pre-commit**: Biome fixes and re-stages the staged files, then type-check, test, and scan for secrets
 - **Commit-msg**: Validate commit message format
-- **Pre-push**: Validate commit history, lint, type-check, and test
+- **Pre-push**: Validate commit history and run `mise run ci`, the same gate as CI
 
 Every hook runs its tools through `mise x`, so hooks work from an editor or a shell without mise activated.
 

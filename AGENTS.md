@@ -17,12 +17,13 @@ A TypeScript application template on the Bun runtime, with Biome for lint and fo
 
 ## Working in the repo
 
-- Tasks are mise tasks, run with `mise run <task>`: `setup`, `start`, `dev`, `test`, `lint`, `format`, `check`. The `package.json` scripts only delegate to them; define a task in `.mise.toml`, not as a script.
+- Tasks are mise tasks, run with `mise run <task>`: `setup`, `start`, `dev`, `test`, `lint`, `format`, `check`, `ci`. `ci` is exactly what the pre-push hook and the GitHub workflow run. The `package.json` scripts only delegate to them; define a task in `.mise.toml`, not as a script.
 - `mise install` installs the pinned tools and `mise run setup` installs dependencies and the git hooks. Outside an activated mise shell, run a tool as `mise x -- <tool>`; a bare call resolves from `PATH` at an unpinned version, or not at all.
 - Git hooks call every tool through `mise x` (and find lefthook itself through the `lefthook:` key in [.lefthook.yml](.lefthook.yml)), because a hook has no active mise shell. Keep it that way: without it, lefthook's generated script falls back to other package managers such as `pnpm`, which install their own lockfile.
 - `bun.lock` is committed and authoritative. Change dependencies with `bun add` / `bun remove`, never by hand-editing the lock file.
 - Bun runs TypeScript directly — there is no build step and no `dist/`. `mise run dev` watches and reloads.
-- Before finishing a change, run `mise run check`, which is `lint` (Biome with warnings as errors, plus `tsc --noEmit`) and `test`; `mise run format` applies Biome's fixes.
+- Before finishing a change, run `mise run check`, which is `lint` (Biome with warnings as errors, `tsc --noEmit`, and a gitleaks secret scan) and `test`; `mise run format` applies Biome's fixes.
+- The bun version lives in two places that must move together: `.mise.toml` and `packageManager` in `package.json`.
 
 ## Conventions
 
