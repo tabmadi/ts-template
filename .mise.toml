@@ -1,0 +1,40 @@
+# Every tool that the repo needs is pinned here. `mise install` installs them.
+
+[tools]
+bun = "1.2.22"
+biome = "1.9.4"
+lefthook = "1.13.0"
+cocogitto = "6.3.0"
+
+[tasks.install]
+description = "Install the locked dependencies"
+run = "bun install --frozen-lockfile"
+
+[tasks.setup]
+description = "Install dependencies and git hooks"
+depends = ["install"]
+run = "lefthook install"
+
+[tasks.dev]
+description = "Run the app and reload on change"
+run = "bun --watch run src/index.ts"
+
+[tasks.start]
+description = "Run the app"
+run = "bun run src/index.ts"
+
+[tasks.test]
+description = "Run the tests"
+run = "bun test"
+
+[tasks.lint]
+description = "Biome (warnings fail) and the TypeScript compiler"
+run = ["biome check --error-on-warnings .", "bun run tsc --noEmit"]
+
+[tasks.format]
+description = "Apply Biome's fixes"
+run = "biome check . --write"
+
+[tasks.check]
+description = "The gate: run it before you finish a change"
+run = ["mise run lint", "mise run test"]

@@ -20,18 +20,14 @@ This template comes pre-configured with:
 - 🪝 **Git Hooks**: Lefthook for automated quality checks
 - 📋 **Conventional Commits**: Cocogitto (cog) for commit message validation and changelog generation
 - 📝 **GitHub Templates**: CODE_OF_CONDUCT.md, SECURITY.md, and LICENSE included
-- ⚡ **Proto Tool Manager**: Automated tool management with [moonrepo proto](https://moonrepo.dev/proto)
+- ⚡ **mise**: Pinned tool versions and tasks with [mise](https://mise.jdx.dev)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- [proto](https://moonrepo.dev/proto): A multi-language version manager that will manage all required tools
-- Alternatively, you can install tools separately:
-    - [Bun](https://bun.sh/): Ultra-fast JavaScript runtime and package manager
-    - [Biome](https://biomejs.dev/): Fast linter and formatter (Prettier + ESLint replacement)
-    - [Cocogitto](https://github.com/cocogitto/cocogitto): Conventional commits tooling
-    - [Lefthook](https://github.com/evilmartians/lefthook): Fast and powerful Git hooks manager
+- [mise](https://mise.jdx.dev): A multi-language version manager and task runner. It installs every other tool
+  (Bun, Biome, Cocogitto, Lefthook) at the versions pinned in [.mise.toml](.mise.toml).
 
 ### Installation
 
@@ -41,54 +37,39 @@ This template comes pre-configured with:
    git clone https://github.com/yourusername/your-project-name.git
    cd your-project-name
    ```
-3. **Install tools and dependencies**:
-   
-   **Option A: Automated Setup (Recommended)**
+3. **Install tools, dependencies, and Git hooks**:
    ```bash
-   # Run the automated installation script
-   ./scripts/install.sh
-   
-   # Install project dependencies
-   bun install
-   ```
-   
-   **Option B: Manual Setup**
-   ```bash
-   # Install proto (if not already installed)
-   bash -c "$(curl -fsSL https://moonrepo.dev/install/proto.sh)"
-   
-   # Install all required tools (bun, biome, cog, lefthook) using proto
-   proto use
-   
-   # Install Git hooks with Lefthook
-   lefthook install
-   
-   # Install project dependencies
-   bun install
+   mise trust     # allow this repo's .mise.toml
+   mise install   # install the pinned tools
+   mise run setup # install dependencies and Git hooks
    ```
 
 ### 🏃‍♂️ Running the Project
 
 ```bash
 # Start the development server (with watch mode)
-bun run dev
+mise run dev
 
 # Start the production server
-bun run start
+mise run start
 ```
 
 ## 🛠️ Development
 
-### Available Scripts
+### Available Tasks
 
-| Script            | Description                                 |
+Tasks live in [.mise.toml](.mise.toml); `mise tasks` lists them. The `package.json` scripts delegate to them, so
+`bun run lint` and `mise run lint` are the same.
+
+| Task              | Description                                 |
 |-------------------|---------------------------------------------|
-| `bun run start`   | Start the production server                 |
-| `bun run dev`     | Start development server with file watching |
-| `bun test`        | Run the tests                               |
-| `bun run lint`    | Biome (warnings fail) and `tsc --noEmit`    |
-| `bun run format`  | Format code with Biome                      |
-| `bun run prepare` | Install Lefthook Git hooks                  |
+| `mise run setup`  | Install dependencies and Git hooks          |
+| `mise run start`  | Start the production server                 |
+| `mise run dev`    | Start development server with file watching |
+| `mise run test`   | Run the tests                               |
+| `mise run lint`   | Biome (warnings fail) and `tsc --noEmit`    |
+| `mise run format` | Format code with Biome                      |
+| `mise run check`  | Lint and test: run it before you finish     |
 
 ### 🧹 Code Quality
 
@@ -96,10 +77,10 @@ This template uses **Biome** for both linting and formatting:
 
 ```bash
 # Check for linting issues
-bun run lint
+mise run lint
 
 # Auto-fix linting issues and format code
-bun run format
+mise run format
 ```
 
 ### 🪝 Git Hooks & Conventional Commits
@@ -110,9 +91,11 @@ This template includes **Lefthook** for automated Git hooks
 
 Git hooks will automatically run on:
 
-- **Pre-commit**: Format code, run linter, and type-check
+- **Pre-commit**: Lint and type-check
 - **Commit-msg**: Validate commit message format
-- **Pre-push**: Final lint and type checks
+- **Pre-push**: Validate commit history, lint, type-check, and test
+
+Every hook runs its tools through `mise x`, so hooks work from an editor or a shell without mise activated.
 
 #### Conventional Commits
 
@@ -148,17 +131,17 @@ git commit -m "feat!: breaking change" # Use BREAKING CHANGE footer instead
 #### Managing Git Hooks
 
 ```bash
-# Install hooks (automatically runs after `bun install`)
-bun run prepare
+# Install hooks (part of `mise run setup`)
+mise x -- lefthook install
 
 # Skip hooks for a single commit (use sparingly)
 git commit -m "feat: add feature" --no-verify
 
 # Temporarily disable hooks
-lefthook uninstall
+mise x -- lefthook uninstall
 
 # Re-enable hooks
-lefthook install
+mise x -- lefthook install
 ```
 
 ### 📁 Project Structure
@@ -197,7 +180,7 @@ The `biome.json` includes:
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
-4. Run the linter and formatter: `bun run format`
+4. Run the formatter and the gate: `mise run format && mise run check`
 5. Commit your changes (`git commit -m 'Add some amazing feature'`)
 6. Push to the branch (`git push origin feature/amazing-feature`)
 7. Open a Pull Request
@@ -226,7 +209,7 @@ This project is licensed under the Apache License—see the [LICENSE](LICENSE) f
 - [TypeScript](https://www.typescriptlang.org/) for type safety
 - [Lefthook](https://github.com/evilmartians/lefthook) for fast and powerful Git hooks management
 - [Cocogitto](https://github.com/cocogitto/cocogitto) for conventional commits tooling and changelog generation
-- [Proto](https://moonrepo.dev/proto) for multi-language version management
+- [mise](https://mise.jdx.dev) for tool versions and tasks
 
 ---
 

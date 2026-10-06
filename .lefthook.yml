@@ -1,18 +1,22 @@
+# Git hooks. `mise run setup` installs them.
+# Every command runs through mise because a git hook has no active mise shell,
+# and `lefthook:` makes the hook scripts find lefthook itself the same way.
+lefthook: mise x -- lefthook
+
 commit-msg:
   commands:
     cog:
-      run: cog verify --file {1}
+      run: mise x -- cog verify --file {1}
 
 pre-commit:
-  parallel: true
   commands:
     lint:
-      glob: "*.{js,ts,tsx,jsx}"
-      run: bun run lint
+      glob: "*.{js,ts,tsx,jsx,json}"
+      run: mise run lint
 
 pre-push:
   commands:
     cog:
-      run: cog check
-    lint:
-      run: bun run lint
+      run: mise x -- cog check
+    check:
+      run: mise run check

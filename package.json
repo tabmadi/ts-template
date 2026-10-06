@@ -3,12 +3,12 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"prepare": "command -v lefthook >/dev/null && lefthook install || echo 'lefthook not found: run proto use to install git hooks'",
-		"start": "bun run src/index.ts",
-		"dev": "bun --watch run src/index.ts",
-		"test": "bun test",
-		"lint": "biome check --error-on-warnings . && tsc --noEmit",
-		"format": "biome check . --write"
+		"dev": "mise run dev",
+		"start": "mise run start",
+		"test": "mise run test",
+		"lint": "mise run lint",
+		"format": "mise run format",
+		"check": "mise run check"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
