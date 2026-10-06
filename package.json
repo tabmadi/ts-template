@@ -3,7 +3,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"prepare": "lefthook install",
+		"prepare": "command -v lefthook >/dev/null && lefthook install || echo 'lefthook not found: run proto use to install git hooks'",
 		"start": "bun run src/index.ts",
 		"dev": "bun --watch run src/index.ts",
 		"test": "bun test",
