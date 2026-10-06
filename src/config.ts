@@ -1,9 +1,5 @@
 import convict from "convict";
 
-export interface ServerConfig {
-	port: number;
-}
-
 const configSchema = convict<ServerConfig>({
 	port: {
 		doc: "The port to bind.",
@@ -15,5 +11,9 @@ const configSchema = convict<ServerConfig>({
 });
 
 configSchema.validate({ allowed: "strict" });
+
+export interface ServerConfig {
+	port: number;
+}
 
 export const config = configSchema.getProperties();

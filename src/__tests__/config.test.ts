@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
+import process from "node:process";
 
 describe("Configuration Tests", () => {
 	let originalEnv: NodeJS.ProcessEnv;
@@ -20,7 +21,7 @@ describe("Configuration Tests", () => {
 		it("should use default port 3000 when no PORT env var is set", async () => {
 			process.env.PORT = undefined;
 
-			const { config } = await import("../config.js");
+			const { config } = await import("../config.ts");
 
 			expect(config.port).toBe(3000);
 		});
@@ -30,7 +31,7 @@ describe("Configuration Tests", () => {
 		it("should use PORT environment variable when set", async () => {
 			process.env.PORT = "8080";
 
-			const { config } = await import("../config.js");
+			const { config } = await import("../config.ts");
 
 			expect(config.port).toBe(8080);
 		});
@@ -41,7 +42,7 @@ describe("Configuration Tests", () => {
 			process.env.PORT = "100000";
 
 			expect(async () => {
-				await import("../config.js");
+				await import("../config.ts");
 			}).toThrow();
 		});
 	});

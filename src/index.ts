@@ -1,4 +1,5 @@
-import { config } from "./config.js";
+import process from "node:process";
+import { config } from "./config.ts";
 
 const server = Bun.serve({
 	port: config.port,
