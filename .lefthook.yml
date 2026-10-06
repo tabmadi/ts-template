@@ -9,14 +9,25 @@ commit-msg:
       run: mise x -- cog verify --file {1}
 
 pre-commit:
+  piped: true
   commands:
-    lint:
-      glob: "*.{js,ts,tsx,jsx,json}"
-      run: mise run lint
+    biome:
+      glob: "*.{ts,tsx,js,jsx,json,jsonc}"
+      run: mise x -- biome check --write --error-on-warnings --no-errors-on-unmatched {staged_files}
+      stage_fixed: true
+    types:
+      glob: "*.{ts,tsx}"
+      run: mise x -- bun run tsc --noEmit
+    test:
+      glob: "*.{ts,tsx}"
+      run: mise run test
+    secrets:
+      run: mise x -- gitleaks git --pre-commit --staged --no-banner
 
+# The full CI run, so a push never reaches CI untested. `git push --no-verify` skips it.
 pre-push:
   commands:
     cog:
       run: mise x -- cog check
-    check:
-      run: mise run check
+    ci:
+      run: mise run ci

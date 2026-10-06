@@ -1,0 +1,16 @@
+# The secret scan for `mise run lint` and the pre-commit hook. It extends the default gitleaks rule set and does not replace it.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = """
+The dependency tree that git ignores, and the lockfile, which holds integrity
+hashes. An entry for any other path hides the defect that this scan looks for.
+"""
+
+paths = [
+  '''^node_modules/''',
+  '''.*/node_modules/''',
+  '''^bun\.lock$''',
+]
