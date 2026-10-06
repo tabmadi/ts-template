@@ -34,6 +34,6 @@ A TypeScript application template on the Bun runtime, with Biome for lint and fo
 
 ## Commits
 
-- **Conventional Commits, enforced.** `cog verify` runs on `commit-msg` and `cog check` plus `mise run check` on `pre-push`, so a malformed message is rejected locally before CI sees it.
+- **Conventional Commits, enforced.** `cog verify` runs on `commit-msg` and `cog check` plus `mise run ci` on `pre-push`, so a malformed message is rejected locally before CI sees it.
 - Commit messages are a title only — no body, no footer.
 - Never push unless asked to.
