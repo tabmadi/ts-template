@@ -14,7 +14,7 @@ describe("Configuration Tests", () => {
 		process.env = originalEnv;
 
 		// Clear module cache to ensure fresh config loading
-		delete require.cache[require.resolve("../config.js")];
+		delete require.cache[require.resolve("../config.ts")];
 	});
 
 	describe("Default Configuration", () => {
