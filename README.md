@@ -85,7 +85,8 @@ bun run start
 |-------------------|---------------------------------------------|
 | `bun run start`   | Start the production server                 |
 | `bun run dev`     | Start development server with file watching |
-| `bun run lint`    | Run Biome linter                            |
+| `bun test`        | Run the tests                               |
+| `bun run lint`    | Biome (warnings fail) and `tsc --noEmit`    |
 | `bun run format`  | Format code with Biome                      |
 | `bun run prepare` | Install Lefthook Git hooks                  |
 
