@@ -119,7 +119,6 @@ git commit -m "feat!: breaking change" # Use BREAKING CHANGE footer instead
 - `feat` - New features
 - `fix` - Bug fixes
 - `docs` - Documentation changes
-- `style` - Code style changes (formatting, etc.)
 - `refactor` - Code refactoring
 - `perf` - Performance improvements
 - `test` - Adding or updating tests

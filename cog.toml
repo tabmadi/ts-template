@@ -1,0 +1,17 @@
+# cocogitto configuration: Conventional Commits with a fixed set of types.
+
+from_latest_tag = false
+ignore_merge_commits = true
+branch_whitelist = ["master", "release/**"]
+
+[commit_types]
+feat     = { changelog_title = "Features" }
+fix      = { changelog_title = "Bug Fixes" }
+perf     = { changelog_title = "Performance" }
+refactor = { changelog_title = "Refactor" }
+docs     = { changelog_title = "Documentation" }
+test     = { changelog_title = "Tests" }
+chore    = { changelog_title = "Chore" }
+build    = { changelog_title = "Build" }
+ci       = { changelog_title = "CI" }
+revert   = { changelog_title = "Reverts" }
