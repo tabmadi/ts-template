@@ -3,9 +3,10 @@
 [tools]
 bun = "1.3.14"
 biome = "2.5.0"
-lefthook = "2.1.9"
+lefthook = "2.2.2"
 cocogitto = "7.0.0"
 gitleaks = "8.30.1"
+rumdl = "0.2.79"
 
 [tasks.install]
 description = "Install the locked dependencies"
@@ -32,17 +33,21 @@ run = "bun test"
 description = "Biome (warnings fail) and the TypeScript compiler"
 run = ["biome check --error-on-warnings .", "bun run tsc --noEmit"]
 
+[tasks."lint:md"]
+description = "Markdown structure and formatting, per ADR-0001"
+run = "rumdl check ."
+
 [tasks."lint:secrets"]
 description = "Scan the working tree for committed secrets"
 run = "gitleaks dir . --no-banner"
 
 [tasks.lint]
 description = "Every linter"
-depends = ["lint:ts", "lint:secrets"]
+depends = ["lint:ts", "lint:md", "lint:secrets"]
 
 [tasks.format]
-description = "Apply Biome's fixes"
-run = "biome check . --write"
+description = "Apply every formatter"
+run = ["biome check . --write", "rumdl check --fix ."]
 
 [tasks.check]
 description = "The gate: run it before you finish a change"

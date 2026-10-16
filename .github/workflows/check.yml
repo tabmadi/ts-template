@@ -7,10 +7,22 @@ on:
     branches: [master]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: jdx/mise-action@v5
+      # The title becomes the squash commit, so it follows Conventional Commits too.
+      # It goes through `env`, never into the script text, so a title cannot inject shell.
+      - name: Validate the PR title
+        if: github.event_name == 'pull_request'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: mise x -- cog verify "$TITLE"
       - run: mise run ci

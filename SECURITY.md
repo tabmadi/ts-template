@@ -2,122 +2,104 @@
 
 ## Introduction
 
-This security policy outlines how security is handled for this project, how to
-report vulnerabilities, and what to expect in response. Our team is committed to
-ensuring the security of our project and appreciates the efforts of security
-researchers and our user community in identifying potential vulnerabilities.
+This policy describes how this project handles security. It tells you how to report a vulnerability and what happens after you report it. Our team is committed to the security of the project. We thank the security researchers and users who find and report vulnerabilities.
 
 ## Supported Versions
 
-We only support the latest released version of our project (latest GitHub
-release). Before reporting a vulnerability, please check that you are using the
-latest version.
+We support only the latest release of the project, which is the latest GitHub release. Before you report a vulnerability, check that you use the latest version.
 
-| Version               | Supported          |
-|-----------------------|--------------------|
+| Version | Supported |
+| --- | --- |
 | Latest GitHub Release | :white_check_mark: |
-| All Previous Versions | :x:                |
+| All Previous Versions | :x: |
 
 ## Reporting a Vulnerability
 
-We take the security of our project seriously. If you believe you've found a
-security vulnerability, please follow these steps:
+We take the security of the project seriously. If you think you found a security vulnerability, follow these steps.
 
 ### How to Report
 
-1. **DO NOT** disclose the vulnerability publicly until it has been addressed by
-   our team.
-2. We use GitHub Security Advisories for vulnerability reporting. Please report
-   security vulnerabilities
-   through [GitHub's private vulnerability reporting feature](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability).
-3. If you're unable to use GitHub Security Advisories, you may email your
-   findings to [tabmadi@proton.me](mailto:tabmadi@proton.me) as an
-   alternative.
+1. **DO NOT** make the vulnerability public until our team fixes it.
+2. We use GitHub Security Advisories for vulnerability reports. Report a vulnerability through [GitHub's private vulnerability reporting feature](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability).
+3. If you cannot use GitHub Security Advisories, email your findings to [tabmadi@proton.me](mailto:tabmadi@proton.me).
 
 ### What to Include
 
-Please include the following information in your report:
+Include this information in your report:
 
-- Description of the vulnerability
-- Steps to reproduce the issue
-- Potential impact of the vulnerability
-- Any potential solutions you've identified
-- Your name/handle if you wish to be credited for the discovery
+- a description of the vulnerability
+- the steps to reproduce the issue
+- the possible impact of the vulnerability
+- any possible fixes you found
+- your name or handle, if you want credit for the discovery
 
 ### What to Expect
 
-After you've submitted a vulnerability report, you can expect the following:
+After you send a vulnerability report, these steps follow:
 
-1. **Acknowledgment**: We will acknowledge receipt of your report within 48 hours.
-2. **Verification**: Our team will work to verify the vulnerability and its impact.
-3. **Updates**: We will provide regular updates as our investigation progresses.
-4. **Resolution**: Once the vulnerability is confirmed, we will work on a fix and
-   coordinate with you on the disclosure timeline.
+1. **Acknowledgment**: We confirm that we received your report within 48 hours.
+2. **Verification**: Our team checks the vulnerability and its impact.
+3. **Updates**: We send you regular updates during our investigation.
+4. **Resolution**: When we confirm the vulnerability, we work on a fix. We agree the disclosure timeline with you.
 
 ## Disclosure Policy
 
-- The vulnerability will remain private until a fix is ready.
-- Once a fix is ready, we will release it as soon as possible.
-- After the fix is released, we will publicly acknowledge the vulnerability and
-  the reporter (if desired).
-- We aim to address and release fixes for vulnerabilities within 90 days of the
-  report.
+- The vulnerability stays private until a fix is ready.
+- When a fix is ready, we release it as soon as possible.
+- After the release, we make the vulnerability public. We also name the reporter, if the reporter wants this.
+- Our target is to fix a vulnerability and release the fix within 90 days of the report.
 
 ## Security Update Process
 
-Security updates will be released in the following ways:
+We release security updates in these ways:
 
-1. For critical vulnerabilities, we will release a patch as soon as possible.
-2. For less severe issues, fixes may be included in regular releases.
-3. Release notes will clearly indicate when security fixes are included.
-4. Users will be notified through our regular communication channels.
+1. For a critical vulnerability, we release a patch as soon as possible.
+2. For a less severe issue, the fix can go into a regular release.
+3. The release notes show when a release includes security fixes.
+4. We tell users through our regular communication channels.
 
 ## Best Practices for Users
 
-To help ensure the security of your implementation:
+To keep your installation secure:
 
 1. Always use the latest version of the project.
-2. Apply security patches promptly.
-3. Follow security best practices relevant to the programming language and
-   environment.
-4. Regularly audit your dependencies for known vulnerabilities.
-5. Implement proper access controls and authentication mechanisms.
-6. Use secure communication protocols (HTTPS, SSH, etc.).
+2. Apply security patches quickly.
+3. Follow the security best practices for your programming language and environment.
+4. Check your dependencies for known vulnerabilities at regular intervals.
+5. Use correct access controls and authentication mechanisms.
+6. Use secure communication protocols, such as HTTPS and SSH.
 
 ## Security-Related Configuration
 
-This section should be customized based on your project's specific security
-configurations:
+Change this section to match the security configuration of your project:
 
-- Recommended security settings
-- Configuration options that enhance security
-- Examples of secure configuration
+- the recommended security settings
+- the configuration options that make the project more secure
+- examples of a secure configuration
 
-## Known Security Gaps & Future Enhancements
+## Known Security Gaps and Future Enhancements
 
-We are transparent about the current limitations of our security measures:
+We state the known limits of our security measures openly:
 
-- List any known security limitations
-- Planned security enhancements
-- Areas where extra caution is recommended
+- the known security limits
+- the planned security enhancements
+- the areas that need extra care
 
 ## Security Contacts
 
-For security-related inquiries or to report a vulnerability, please contact:
+To ask about security or to report a vulnerability, contact:
 
 - Security Email: [tabmadi@proton.me](mailto:tabmadi@proton.me)
 - Project Maintainer: [tabmadi@proton.me](mailto:tabmadi@proton.me)
 
-*Note: Replace these with your actual contact information.*
+*Replace these with your real contact information.*
 
 ## Acknowledgments
 
-We would like to thank the following individuals who have responsibly disclosed
-security vulnerabilities:
+We thank these people, who disclosed security vulnerabilities responsibly:
 
-- *This section will be updated as contributors report security issues*
+- *This list grows when contributors report security issues*
 
 ---
 
-This security policy is a living document and may be updated or revised as
-needed. Last updated: 2026-05-16.
+This security policy changes when needed. Last updated: 2026-05-16.

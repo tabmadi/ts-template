@@ -21,6 +21,9 @@ pre-commit:
     test:
       glob: "*.{ts,tsx}"
       run: mise run test
+    markdown:
+      glob: "*.md"
+      run: mise x -- rumdl check {staged_files}
     secrets:
       run: mise x -- gitleaks git --pre-commit --staged --no-banner
 
@@ -28,6 +31,8 @@ pre-commit:
 pre-push:
   commands:
     cog:
-      run: mise x -- cog check
+      # Only the commits that this push adds. Older history, such as the first commit
+      # that GitHub writes for a repo made from a template, can predate the convention.
+      run: mise x -- cog check origin/master..HEAD
     ci:
       run: mise run ci

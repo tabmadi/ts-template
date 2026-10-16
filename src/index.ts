@@ -16,5 +16,5 @@ const server = Bun.serve({
 	fetch: () => new Response(null, { status: 404 }),
 });
 
-// biome-ignore lint/suspicious/noConsole: it's just an example we don't want to add a logger for it
+// biome-ignore lint/suspicious/noConsole: the sample has no logger, and one startup line does not need one
 console.info(`Server running at http://localhost:${server.port}`);

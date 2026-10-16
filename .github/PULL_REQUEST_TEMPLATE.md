@@ -1,35 +1,35 @@
 ## Type of Change
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Bug fix: a non-breaking change that fixes an issue
+- [ ] New feature: a non-breaking change that adds functionality
+- [ ] Breaking change: a fix or feature that stops existing functionality from working as expected
 - [ ] Documentation update
-- [ ] Refactoring (no functional changes)
+- [ ] Refactoring, with no functional changes
 - [ ] Performance improvement
-- [ ] Other (please describe):
+- [ ] Other, described here:
 
 ## Changes Made
 
-- List the main changes made in this PR
-- Use bullet points for clarity
+- List the main changes in this PR
+- Use bullet points
 - Include any important technical details
 
 ## Testing
 
-- [ ] I have tested these changes locally
-- [ ] I have added/updated unit tests
+- [ ] I tested these changes locally
+- [ ] I added or updated unit tests
 - [ ] All existing tests pass
-- [ ] I have tested edge cases
+- [ ] I tested edge cases
 
 ## Checklist
 
-- [ ] My code follows the project's style guidelines
-- [ ] I have performed a self-review of my code
-- [ ] I have commented on my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] No sensitive information (passwords, keys, etc.) is included
+- [ ] My code follows the style guidelines of the project
+- [ ] I reviewed my own code
+- [ ] I commented my code where it is hard to understand
+- [ ] I made the matching changes to the documentation
+- [ ] My changes create no new warnings
+- [ ] The PR includes no sensitive information, such as passwords or keys
 
-## Screenshots (if applicable)
+## Screenshots
 
-Add screenshots or GIFs to help explain your changes
+If they apply, add screenshots or GIFs that help explain your changes.

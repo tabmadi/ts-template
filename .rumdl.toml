@@ -1,0 +1,27 @@
+# The Markdown rules for `mise run lint:md`, lefthook, and any editor with the rumdl LSP.
+# Rules: https://github.com/rvben/rumdl
+
+[global]
+# Prose is not hard-wrapped, per ADR-0001, and a column limit conflicts with that.
+disable = ["MD013"]
+# The pull request template is a GitHub form body and has no title heading.
+exclude = ["node_modules", "**/CHANGELOG.md", ".github/PULL_REQUEST_TEMPLATE.md"]
+
+[MD004]
+style = "dash"
+
+[MD007]
+indent = 2
+style = "fixed"
+
+# ADRs use the same section names under different parents.
+[MD024]
+siblings-only = true
+
+[MD029]
+style = "ordered"
+
+# Tables are compact, per ADR-0001. The rule is off by default upstream, so it is enabled here.
+[MD060]
+enabled = true
+style = "compact"

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended", ":semanticCommits", ":dependencyDashboard"],
+	"description": [
+		"Dependency updates, per ADR-0100. Renovate opens the pull request, and the CI gate decides. It merges nothing.",
+		"The mise manager updates the tool pins in .mise.toml, so a pin does not go stale."
+	],
+	"labels": ["dependencies"],
+	"rangeStrategy": "pin",
+	"separateMajorMinor": true,
+	"schedule": ["before 6am on monday"],
+	"packageRules": [
+		{
+			"description": "A major version is a decision, so it is proposed alone and never joins a group.",
+			"matchUpdateTypes": ["major"],
+			"groupName": null
+		},
+		{
+			"description": "Minor and patch updates of the pinned tools come in one pull request.",
+			"matchManagers": ["mise", "github-actions"],
+			"matchUpdateTypes": ["minor", "patch"],
+			"groupName": "toolchain"
+		}
+	]
+}
