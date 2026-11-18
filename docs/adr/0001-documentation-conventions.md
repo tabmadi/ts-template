@@ -9,6 +9,41 @@ Humans and LLMs read every text in this repo. Many readers do not speak English 
 
 Style drifts where it is a matter of taste. So each rule here is a closed list or a limit, and a reviewer cites it instead of arguing taste.
 
+## Decision drivers
+
+1. **Readers with limited English.** The text works for a reader at the CEFR B1 level, and for a machine translation.
+2. **Checkable.** Each rule is a closed list or a limit that a tool or a reviewer can check.
+3. **Published.** The rules adopt a published standard, so a new reader can look them up.
+4. **Enforced.** A tool checks the rules in the hooks and in CI.
+
+## Considered options
+
+### The house style
+
+| Option | 1 Limited English | 2 Checkable | 3 Published | Verdict |
+| --- | --- | --- | --- | --- |
+| No style guide | No | No | No | Rejected |
+| Google Developer Documentation Style Guide alone | Partly. It asks for clear and simple English | Many rules are advice, not limits | Yes | Rejected as a whole. Its voice and tense rules are taken |
+| Microsoft Writing Style Guide | Partly | Many rules are advice, not limits | Yes | Rejected on driver 2 |
+| ASD-STE100 in full | Yes | Yes | Yes | Rejected. Its fixed dictionary bans the technical words of software |
+| **A profile of ASD-STE100, with CEFR B1 words and kept technical terms** | **Yes** | **Yes** | **Its writing rules are published** | **Chosen** |
+
+Sources:
+
+- [ASD-STE100](https://www.asd-ste100.org/), [Google Developer Documentation Style Guide](https://developers.google.com/style), [Microsoft Writing Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/), [ISO 24495-1](https://www.iso.org/standard/78907.html).
+
+### The prose linter
+
+| Option | 2 Checkable rules of this ADR | 4 Enforced | Verdict |
+| --- | --- | --- | --- |
+| A reviewer only | Yes, slowly and unevenly | No | Rejected on driver 4 |
+| Vale, with custom YAML styles | Word lists and patterns. A rule on the shape of an ADR, a rule index, or a recipe name needs code outside Vale | Yes | Rejected. Most rules here are not word patterns |
+| **tablint, from the tabnix module** | **Every rule of this ADR, with the ADR shape, the index, and the recipe names** | **Yes, as a hook and the `lint-prose` check** | **Chosen. It is maintained beside the rules that it checks** |
+
+Sources:
+
+- Vale rules are YAML files with word lists and patterns: [Vale styles](https://vale.sh/docs/styles).
+
 ## Decision
 
 ### Adopted standards

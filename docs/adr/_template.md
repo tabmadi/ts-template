@@ -9,6 +9,22 @@
 
 The facts that make a decision necessary.
 
+## Decision drivers
+
+1. The first criterion that the options must meet. Number them, so the table can name them.
+2. The next criterion.
+
+## Considered options
+
+| Option | Driver 1 | Driver 2 | Verdict |
+| --- | --- | --- | --- |
+| An option | How it meets driver 1 | How it meets driver 2 | Rejected, and why |
+| **The chosen option** | How it meets driver 1 | How it meets driver 2 | **Chosen, and why** |
+
+Sources:
+
+- A claim of the table, with a link to the page that states it. A claim without a source is reasoning.
+
 ## Decision
 
 What is true of this repo as a result.
