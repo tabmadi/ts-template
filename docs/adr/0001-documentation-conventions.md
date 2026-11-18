@@ -133,7 +133,17 @@ A number is part of a decision only when doubling it would change the decision.
 | `docs/adr/` | One decision per file |
 | `docs/guide/` | A procedure that someone follows |
 | `docs/reference/` | A lookup, a registry, or live state |
+| `requirements.md` | What the code does, next to the code. Behaviour across modules is in `docs/requirements/` |
 | `README.md` at the root | What the repo is, who it is for, and how to start |
+
+**Behaviour is written as requirements.** When a repo states what its code does, each requirement is one [EARS](https://alistairmavin.com/ears/) sentence with an ID, in a table row. A requirement exists only when a test cites its ID, and tablint checks the trace. Each kind of text answers one question:
+
+| Text | Answers |
+| --- | --- |
+| An ADR | Why the repo works as it does |
+| A requirement | What the code does |
+| An API contract, such as `openapi.yaml` | The exact shape of a request and a response |
+| A guide | How a person does a task |
 
 The README of each kind of repo has these sections, in this order. A section with nothing to say is left out.
 
@@ -196,6 +206,7 @@ tablint checks most rules of this ADR: the profile, the punctuation, the banned 
 - A number is stated only when doubling it would change the decision.
 - No tracked file links to an untracked one. `(CI: lint-prose)`
 - A decision lives in `docs/adr/`, a procedure in `docs/guide/`, and a lookup in `docs/reference/`.
+- Behaviour lives in `requirements.md` or `docs/requirements/`, as one EARS sentence with an ID for each row, and a test cites each ID. `(CI: lint-prose)`
 - The README has the sections of its kind of repo, in order.
 - Markdown is not hard-wrapped, tables are compact, and every Markdown file passes `rumdl`. `(CI: lint-md)`
 - A comment passes the deletion, genre, and length tests, and states one of the allowed facts. `(CI: lint-prose)`
