@@ -2,3 +2,19 @@
 
 [extend]
 useDefault = true
+
+# `just lint-secrets` scans the working tree, so it also reads what git ignores. These paths are
+# build output, installed dependencies, and lock files with integrity hashes. An entry for any
+# other path hides the defect that this scan looks for.
+[allowlist]
+paths = [
+  '''(^|/)node_modules/''',
+  '''^\.next/''',
+  '''^\.venv/''',
+  '''^\.direnv/''',
+  '''^bin/''',
+  '''^result(-.*)?$''',
+  '''^bun\.lock$''',
+  '''^bun\.nix$''',
+  '''^uv\.lock$''',
+]
