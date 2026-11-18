@@ -59,7 +59,7 @@ This repo is a TypeScript application on the Bun runtime.
 | --- | --- |
 | `src/` | The application code |
 | `src/__tests__/` | The tests, one file for each module |
-| `src/config.ts` | The configuration: a `convict` schema with defaults and environment variable bindings |
+| `src/config.ts` | The configuration: defaults in code, overridden by environment variables |
 | `bun.lock` | The locked dependency set |
 | `bun.nix` | The same set for Nix, written from `bun.lock`, per [ADR-0110](0110-typescript.md) |
 

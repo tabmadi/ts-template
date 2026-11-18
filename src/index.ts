@@ -1,20 +1,32 @@
 import process from "node:process";
-import { config } from "./config.ts";
+import { type Config, ConfigError, fromEnv } from "./config.ts";
+import { createLogger } from "./log.ts";
+import { startServer } from "./server.ts";
 
-const server = Bun.serve({
-	port: config.port,
-	routes: {
-		"/health": {
-			GET: () =>
-				Response.json({
-					status: "ok",
-					timestamp: new Date().toISOString(),
-					uptime: process.uptime(),
-				}),
-		},
-	},
-	fetch: () => new Response(null, { status: 404 }),
-});
+// The entry point. It reads the configuration, starts the server, and stops it on a signal.
 
-// biome-ignore lint/suspicious/noConsole: the sample has no logger, and one startup line does not need one
-console.info(`Server running at http://localhost:${server.port}`);
+function readConfig(): Config {
+	try {
+		return fromEnv();
+	} catch (error) {
+		if (error instanceof ConfigError) {
+			process.stderr.write(`${error.message}\n`);
+			process.exit(1);
+		}
+		throw error;
+	}
+}
+
+const config = readConfig();
+const logger = createLogger(config.logLevel);
+const server = startServer(config.port, logger);
+logger.info("listening", { port: server.port });
+
+// The server stops accepting connections, and the open requests finish.
+for (const signal of ["SIGINT", "SIGTERM"] as const) {
+	process.on(signal, async () => {
+		await server.stop();
+		logger.info("stopped");
+		process.exit(0);
+	});
+}

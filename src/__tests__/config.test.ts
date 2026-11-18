@@ -1,50 +1,37 @@
-import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import process from "node:process";
+import { describe, expect, it } from "bun:test";
+import { type Config, ConfigError, DEFAULT_PORT, load } from "../config.ts";
 
-describe("Configuration Tests", () => {
-	let originalEnv: NodeJS.ProcessEnv;
+// The environment variables have upper-case names, so the tests build them from pairs.
+const env = (...pairs: [string, string][]): Record<string, string> =>
+	Object.fromEntries(pairs);
 
-	beforeEach(() => {
-		// Save the original environment
-		originalEnv = { ...process.env };
+describe("load", () => {
+	const valid: [string, Record<string, string>, Config][] = [
+		["defaults", env(), { port: DEFAULT_PORT, logLevel: "info" }],
+		[
+			"empty values take the defaults",
+			env(["PORT", ""], ["LOG_LEVEL", ""]),
+			{ port: DEFAULT_PORT, logLevel: "info" },
+		],
+		[
+			"overrides",
+			env(["PORT", "9000"], ["LOG_LEVEL", "DEBUG"]),
+			{ port: 9000, logLevel: "debug" },
+		],
+	];
+
+	it.each(valid)("reads %s", (_name, variables, expected) => {
+		expect(load(variables)).toEqual(expected);
 	});
 
-	afterEach(() => {
-		// Restore original environment
-		process.env = originalEnv;
+	const invalid: [string, Record<string, string>, string][] = [
+		["port is not a number", env(["PORT", "abc"]), "PORT"],
+		["port is out of range", env(["PORT", "70000"]), "PORT"],
+		["log level is unknown", env(["LOG_LEVEL", "loud"]), "LOG_LEVEL"],
+	];
 
-		// Clear module cache to ensure fresh config loading
-		delete require.cache[require.resolve("../config.ts")];
-	});
-
-	describe("Default Configuration", () => {
-		it("should use default port 3000 when no PORT env var is set", async () => {
-			// An assignment stores the string `undefined`, so the variable is removed instead.
-			Reflect.deleteProperty(process.env, "PORT");
-
-			const { config } = await import("../config.ts");
-
-			expect(config.port).toBe(3000);
-		});
-	});
-
-	describe("Environment Variable Configuration", () => {
-		it("should use PORT environment variable when set", async () => {
-			process.env.PORT = "8080";
-
-			const { config } = await import("../config.ts");
-
-			expect(config.port).toBe(8080);
-		});
-	});
-
-	describe("Port Validation", () => {
-		it("should validate port is within valid range", () => {
-			process.env.PORT = "100000";
-
-			expect(async () => {
-				await import("../config.ts");
-			}).toThrow();
-		});
+	it.each(invalid)("rejects when the %s", (_name, variables, name) => {
+		expect(() => load(variables)).toThrow(ConfigError);
+		expect(() => load(variables)).toThrow(name);
 	});
 });

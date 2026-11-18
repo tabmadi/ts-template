@@ -9,7 +9,6 @@ A template for a TypeScript application on the Bun runtime. Bun runs TypeScript 
 | [Bun](https://bun.sh) | The runtime, install, and tests |
 | [TypeScript](https://www.typescriptlang.org) | The type check |
 | [Biome](https://biomejs.dev) | Lint and format |
-| [convict](https://github.com/mozilla/node-convict) | Configuration |
 | [Nix](https://nixos.org) with flakes | Tool versions, the dev shell, and the sandboxed checks |
 | [bun2nix](https://github.com/nix-community/bun2nix) | The dependency set for Nix |
 | [tabnix](https://github.com/tabmadi/tabnix) | The shared dev shell, git hooks, and checks |
@@ -44,7 +43,7 @@ A template for a TypeScript application on the Bun runtime. Bun runs TypeScript 
 4. Call it from another terminal:
 
    ```bash
-   curl http://localhost:3000/health
+   curl http://localhost:8080/health
    ```
 
 ## Editor
@@ -78,8 +77,10 @@ Open the folder in Zed, and run `direnv allow` once. Zed suggests its Nix extens
 ├── .github/          Issue forms, the CI workflow, Renovate, SECURITY.md, and CODE_OF_CONDUCT.md
 ├── .zed/             Zed project settings and tasks
 ├── src/
-│   ├── index.ts      The HTTP server with a /health route
-│   ├── config.ts     The configuration schema
+│   ├── index.ts      The entry point. It stops the server on a signal
+│   ├── config.ts     The configuration, checked at startup
+│   ├── log.ts        The JSON logger
+│   ├── server.ts     The HTTP routes
 │   └── __tests__/    The tests
 ├── docs/adr/         The decisions of the project: foundations, doc conventions, toolchain
 ├── template/         What only the template needs: its contract, checks, and outputs
@@ -100,7 +101,10 @@ Open the folder in Zed, and run `direnv allow` once. Zed suggests its Nix extens
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `PORT` | The port the server binds | `3000` |
+| `PORT` | The port the server binds, from 1 to 65535 | `8080` |
+| `LOG_LEVEL` | One of `debug`, `info`, `warn`, or `error`, in any case | `info` |
+
+An unset or empty variable takes its default. A bad value stops the app at startup, with the error on standard error.
 
 ## Starting a project
 
@@ -116,7 +120,7 @@ Then follow the steps that it prints:
 2. Change `name` in `package.json` to your own.
 3. Run `nix develop`. It downloads the tools and installs the git hooks.
 4. Run `just setup`. It installs the locked dependencies.
-5. Replace the sample server in `src/` with your own code.
+5. Replace the sample service in `src/` with your own code.
 6. Rewrite this README for the project, with the sections that ADR-0001 sets for its kind of repo.
 7. Update the contacts in `.github/SECURITY.md` and the copyright line in `LICENSE`.
 8. Install the [Renovate app](https://github.com/apps/renovate) on the new repository.
