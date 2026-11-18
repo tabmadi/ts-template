@@ -1,4 +1,4 @@
-# The CI gate. It runs `mise run ci`, the same command as the pre-push hook.
+# The CI gate. It runs `just ci` inside the dev shell, the same command as the pre-push hook.
 
 name: check
 
@@ -17,12 +17,12 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: jdx/mise-action@v5
+      - uses: cachix/install-nix-action@v31
       # The title becomes the squash commit, so it follows Conventional Commits too.
       # It goes through `env`, never into the script text, so a title cannot inject shell.
       - name: Validate the PR title
         if: github.event_name == 'pull_request'
         env:
           TITLE: ${{ github.event.pull_request.title }}
-        run: mise x -- cog verify "$TITLE"
-      - run: mise run ci
+        run: nix develop --command cog --config .config/cog.toml verify "$TITLE"
+      - run: nix develop --command just ci

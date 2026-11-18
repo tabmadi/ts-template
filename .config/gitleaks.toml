@@ -1,0 +1,4 @@
+# The secret scan for `mise run lint` and the pre-commit hook. It extends the default gitleaks rule set and does not replace it.
+
+[extend]
+useDefault = true

@@ -1,0 +1,11 @@
+# The recipes of the template scope, per TPL-0000.
+
+# Check that the project docs stay true in every copy
+lint-scope:
+    nix build ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).lint-scope" --no-link --print-build-logs
+
+# Turn a copy from the GitHub template button into a project: print the first steps, then remove template/
+init:
+    @nix eval --raw ".#templates.default.welcomeText"
+    git rm -r --quiet template
+    @echo "Removed template/. Commit the removal, then follow the steps above."

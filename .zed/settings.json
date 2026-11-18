@@ -1,0 +1,107 @@
+// Project settings for Zed, per ADR-0100. Zed loads the Nix dev shell through direnv, so every
+// formatter and language server below is the pinned version from flake.nix. Zed formats on save
+// only with a formatter of the repo, so its result matches `just format`. The repo has no
+// .editorconfig, so the indentation and whitespace rules for typing are here.
+{
+  "tab_size": 2,
+  "hard_tabs": false,
+  "ensure_final_newline_on_save": true,
+  "remove_trailing_whitespace_on_save": true,
+  "format_on_save": "off",
+  "languages": {
+    "JSON": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "dprint",
+          "arguments": ["fmt", "--stdin", "{buffer_path}"]
+        }
+      }
+    },
+    "JSONC": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "dprint",
+          "arguments": ["fmt", "--stdin", "{buffer_path}"]
+        }
+      }
+    },
+    "Markdown": {
+      "remove_trailing_whitespace_on_save": false,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "rumdl",
+          "arguments": [
+            "fmt",
+            "--stdin",
+            "--stdin-filename",
+            "{buffer_path}",
+            "--silent"
+          ]
+        }
+      }
+    },
+    "Nix": {
+      "language_servers": ["nixd", "!nil"],
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "nixfmt"
+        }
+      }
+    },
+    "JavaScript": {
+      "language_servers": ["typescript-language-server", "!vtsls", "..."],
+      "hard_tabs": true,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "biome",
+          "arguments": ["format", "--config-path", ".config", "--stdin-file-path", "{buffer_path}"]
+        }
+      }
+    },
+    "TSX": {
+      "language_servers": ["typescript-language-server", "!vtsls", "..."],
+      "hard_tabs": true,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "biome",
+          "arguments": ["format", "--config-path", ".config", "--stdin-file-path", "{buffer_path}"]
+        }
+      }
+    },
+    "TypeScript": {
+      "language_servers": ["typescript-language-server", "!vtsls", "..."],
+      "hard_tabs": true,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "biome",
+          "arguments": ["format", "--config-path", ".config", "--stdin-file-path", "{buffer_path}"]
+        }
+      }
+    },
+    "TOML": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "dprint",
+          "arguments": ["fmt", "--stdin", "{buffer_path}"]
+        }
+      }
+    },
+    "YAML": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "dprint",
+          "arguments": ["fmt", "--stdin", "{buffer_path}"]
+        }
+      }
+    }
+  }
+}

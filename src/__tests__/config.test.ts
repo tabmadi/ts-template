@@ -19,7 +19,8 @@ describe("Configuration Tests", () => {
 
 	describe("Default Configuration", () => {
 		it("should use default port 3000 when no PORT env var is set", async () => {
-			process.env.PORT = undefined;
+			// An assignment stores the string `undefined`, so the variable is removed instead.
+			Reflect.deleteProperty(process.env, "PORT");
 
 			const { config } = await import("../config.ts");
 

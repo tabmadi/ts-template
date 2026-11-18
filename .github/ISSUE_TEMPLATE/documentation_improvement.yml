@@ -1,8 +1,8 @@
 name: Documentation Improvement
 description: Suggest a change to the documentation
 title: "docs: "
-labels: [ "documentation" ]
-assignees: [ ]
+labels: ["documentation"]
+assignees: []
 
 body:
   - type: dropdown

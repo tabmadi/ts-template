@@ -1,11 +1,12 @@
-# The Markdown rules for `mise run lint:md`, lefthook, and any editor with the rumdl LSP.
+# The Markdown rules for `just lint-md`, the git hooks, and any editor with the rumdl LSP.
+# rumdl finds this file in .config/ by itself.
 # Rules: https://github.com/rvben/rumdl
 
 [global]
 # Prose is not hard-wrapped, per ADR-0001, and a column limit conflicts with that.
 disable = ["MD013"]
 # The pull request template is a GitHub form body and has no title heading.
-exclude = ["node_modules", "**/CHANGELOG.md", ".github/PULL_REQUEST_TEMPLATE.md"]
+exclude = ["**/CHANGELOG.md", ".github/PULL_REQUEST_TEMPLATE.md"]
 
 [MD004]
 style = "dash"
