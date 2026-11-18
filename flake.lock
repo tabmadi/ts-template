@@ -2,8 +2,9 @@
   "nodes": {
     "bun2nix": {
       "inputs": {
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "nixpkgs": [
+          "tabnix",
           "nixpkgs"
         ],
         "systems": "systems",
@@ -39,9 +40,46 @@
         "type": "github"
       }
     },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793576659,
+        "narHash": "sha256-V1h85lUaJBQoHFrB2vpXZOE0Ju1MYSnIpsehoVZYlDo=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "ea2630b7470978622c7689a1ff75d2b389175399",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "tabnix",
           "bun2nix",
           "nixpkgs"
         ]
@@ -60,9 +98,11 @@
         "type": "github"
       }
     },
-    "flake-parts_2": {
+    "flake-parts_3": {
       "inputs": {
         "nixpkgs-lib": [
+          "tabnix",
+          "tablint",
           "nixpkgs"
         ]
       },
@@ -102,6 +142,30 @@
         "type": "github"
       }
     },
+    "git-hooks_2": {
+      "inputs": {
+        "flake-compat": "flake-compat_2",
+        "nixpkgs": [
+          "tabnix",
+          "tablint",
+          "tabnix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793686154,
+        "narHash": "sha256-Zb/0L3soxrkfcrywpfp0J++0WFLB3tzh0Xtx9up+VNc=",
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "rev": "204b6977e00caac19e2313015a598543ca7be150",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1794840529,
@@ -120,8 +184,7 @@
     },
     "root": {
       "inputs": {
-        "bun2nix": "bun2nix",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "tabnix": "tabnix"
       }
@@ -143,32 +206,31 @@
     },
     "tablint": {
       "inputs": {
-        "git-hooks": [
-          "tabnix",
-          "git-hooks"
-        ],
+        "flake-parts": "flake-parts_3",
         "nixpkgs": [
           "tabnix",
           "nixpkgs"
-        ]
+        ],
+        "tabnix": "tabnix_2"
       },
       "locked": {
-        "lastModified": 1794886699,
-        "narHash": "sha256-wgikbIdF5I0q1fNx2W3vTcRf5+v+FhJDV7NnqbEKAR4=",
+        "lastModified": 1795039348,
+        "narHash": "sha256-SvT0FHaugc9hx2SK1eUpOMl3yvzCDbkbW0OXxjp80Yw=",
         "owner": "tabmadi",
         "repo": "tablint",
-        "rev": "278928f1db4165b7f105fc998016d0010b0c5373",
+        "rev": "e9182f5675c78042fce38df2f416abc9757d99c4",
         "type": "github"
       },
       "original": {
         "owner": "tabmadi",
-        "ref": "v0.2.0",
+        "ref": "v0.3.0",
         "repo": "tablint",
         "type": "github"
       }
     },
     "tabnix": {
       "inputs": {
+        "bun2nix": "bun2nix",
         "flake-parts": [
           "flake-parts"
         ],
@@ -179,16 +241,49 @@
         "tablint": "tablint"
       },
       "locked": {
-        "lastModified": 1794984700,
-        "narHash": "sha256-L7ojG9+3lEOwAuwZarzgMtzalGBRRokoIjtIu+C9Ibs=",
+        "lastModified": 1795042219,
+        "narHash": "sha256-zmReU0jsaHxaX/qeLmTDbyeFmcN6sVZUF7rw6m48SIc=",
         "owner": "tabmadi",
         "repo": "tabnix",
-        "rev": "0067a6e0609fd06a8c4ce87ac53f828524313248",
+        "rev": "698b0a083a190ed226d057380043f80c6008bd60",
         "type": "github"
       },
       "original": {
         "owner": "tabmadi",
-        "ref": "v0.3.0",
+        "ref": "v0.4.1",
+        "repo": "tabnix",
+        "type": "github"
+      }
+    },
+    "tabnix_2": {
+      "inputs": {
+        "flake-parts": [
+          "tabnix",
+          "tablint",
+          "flake-parts"
+        ],
+        "git-hooks": "git-hooks_2",
+        "nixpkgs": [
+          "tabnix",
+          "tablint",
+          "nixpkgs"
+        ],
+        "tablint": [
+          "tabnix",
+          "tablint"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794889197,
+        "narHash": "sha256-/k8HLiNGSb/9H/LUzYn14bRimFbbwO+2ZxYz7CzmaGA=",
+        "owner": "tabmadi",
+        "repo": "tabnix",
+        "rev": "72578082155bdc5445a04e37d2262b199ba7cc94",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tabmadi",
+        "ref": "v0.1.1",
         "repo": "tabnix",
         "type": "github"
       }
@@ -196,6 +291,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "tabnix",
           "bun2nix",
           "nixpkgs"
         ]
