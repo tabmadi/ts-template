@@ -18,7 +18,7 @@ This repo starts from [github-project-template](https://github.com/tabmadi/githu
 | Project | Every file outside `template/`, written in the voice of the project | Copied |
 | Template | The `template/` folder: this ADR, the agent hints, and the template checks and outputs | Not copied |
 
-`flake.nix` loads `template/scope.nix` when it exists. That file adds the template checks and the `templates` output. A project has no `template/` folder, so it adds nothing.
+`flake.nix` loads `template/scope.nix` when it exists. That file imports the template module of tabnix and sets its description and welcome text. The module adds the template checks and the `templates` output. A project has no `template/` folder, so it adds nothing.
 
 ### Making a project
 
