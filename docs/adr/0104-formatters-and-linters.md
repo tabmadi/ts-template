@@ -32,11 +32,11 @@ Sources:
 
 ### Markdown
 
-| Option | Lints and formats | 4 No runtime | Verdict |
-| --- | --- | --- | --- |
-| markdownlint-cli2 | Lints, with some fixes | Needs Node.js | Rejected on driver 4 |
-| mdformat | Formats only | Needs Python | Rejected on driver 4 |
-| **rumdl** | **Both, with the 53 rules of markdownlint and more** | **Yes** | **Chosen. It also reads the config of markdownlint** |
+| Option | Lints and formats | 4 No runtime | Maturity | Verdict |
+| --- | --- | --- | --- | --- |
+| markdownlint-cli2 | Lints, with some fixes | Needs Node.js | Mature, with the reference rule set | Rejected on driver 4 |
+| mdformat | Formats only | Needs Python | Mature | Rejected on driver 4 |
+| **rumdl** | **Both, with the 53 rules of markdownlint and more** | **Yes** | **Before 1.0, with frequent releases** | **Chosen. It also reads the config of markdownlint, so a move back to markdownlint-cli2 is cheap** |
 
 Sources:
 

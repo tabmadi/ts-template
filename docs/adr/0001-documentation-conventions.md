@@ -34,11 +34,11 @@ Sources:
 
 ### The prose linter
 
-| Option | 2 Checkable rules of this ADR | 4 Enforced | Verdict |
-| --- | --- | --- | --- |
-| A reviewer only | Yes, slowly and unevenly | No | Rejected on driver 4 |
-| Vale, with custom YAML styles | Word lists and patterns. A rule on the shape of an ADR, a rule index, or a recipe name needs code outside Vale | Yes | Rejected. Most rules here are not word patterns |
-| **tablint, from the tabnix module** | **Every rule of this ADR, with the ADR shape, the index, and the recipe names** | **Yes, as a hook and the `lint-prose` check** | **Chosen. It is maintained beside the rules that it checks** |
+| Option | 2 Checkable rules of this ADR | 4 Enforced | Upkeep | Verdict |
+| --- | --- | --- | --- | --- |
+| A reviewer only | Yes, slowly and unevenly | No | None | Rejected on driver 4 |
+| Vale, with custom YAML styles | Word lists and patterns. A rule on the shape of an ADR, a rule index, or a recipe name needs code outside Vale | Yes | A community maintains the engine, and the repo writes its styles | Rejected. Most rules here are not word patterns |
+| **tablint, from the tabnix module** | **Every rule of this ADR, with the ADR shape, the index, and the recipe names** | **Yes, as a hook and the `lint-prose` check** | **The owner maintains the whole tool** | **Chosen. The cost is its upkeep. A rule that Vale can hold is a reason to revisit** |
 
 Sources:
 

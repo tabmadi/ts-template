@@ -21,12 +21,15 @@ The shared toolchain of [ADR-0100](0100-toolchain.md) holds no language. This AD
 | Option | 1 No build step | 2 Few tools | Verdict |
 | --- | --- | --- | --- |
 | Node.js with npm and Vitest | Type stripping only, with limits on TypeScript syntax | Three tools | Rejected on drivers 1 and 2 |
-| Deno | Yes | One tool, with its own module and permission model | Rejected. Most npm packages work, but a project meets the differences of its model |
+| Deno | Yes | The fewest tools: one binary runs, installs, formats, lints, tests, and checks types | Rejected, narrowly. Its linter has fewer rules than Biome, and Nix has no mature builder for `deno.lock` yet. It is the first candidate to revisit |
 | **Bun** | **Yes** | **One tool: runtime, install, and `bun:test`** | **Chosen** |
 
 Sources:
 
-- [Bun](https://bun.sh/docs), [Deno](https://docs.deno.com/runtime/), [Node.js TypeScript support](https://nodejs.org/api/typescript.html).
+- [Bun](https://bun.sh/docs), [Node.js TypeScript support](https://nodejs.org/api/typescript.html).
+- The built-in tools of Deno: [Deno lint and format](https://docs.deno.com/runtime/lint_and_format/).
+- Biome has more than 500 rules: [Biome v2.5](https://biomejs.dev/blog/biome-v2-5/).
+- Nix tools for Deno are community projects, and the builder of `nixpkgs` was reverted once: [Packaging Deno applications](https://discourse.nixos.org/t/packaging-deno-applications/15441).
 
 ### The linter and the formatter
 
