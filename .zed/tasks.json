@@ -1,4 +1,4 @@
-// The just recipes as Zed tasks, per ADR-0100. Each one runs in the Nix dev shell through direnv.
+// The just recipes as Zed tasks, per ADR-0103. Each one runs in the Nix dev shell through direnv.
 [
   { "label": "just dev", "command": "just dev" },
   { "label": "just check", "command": "just check" },

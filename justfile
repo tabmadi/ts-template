@@ -1,4 +1,4 @@
-# Every task, per ADR-0100. A recipe that calls a tool runs only inside the dev shell of flake.nix.
+# Every task, per ADR-0103. A recipe that calls a tool runs only inside the dev shell of flake.nix.
 
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
@@ -46,15 +46,15 @@ lint-md: in-shell
 lint-secrets: in-shell
     gitleaks dir . --no-banner
 
-# JSON, JSONC, TOML, and YAML format, per ADR-0100
+# JSON, JSONC, TOML, and YAML format, per ADR-0104
 lint-data: in-shell
     dprint check
 
-# Nix format, per ADR-0100
+# Nix format, per ADR-0104
 lint-nix: in-shell
     nixfmt --check $(git ls-files '*.nix')
 
-# justfile format, per ADR-0100
+# justfile format, per ADR-0104
 lint-just:
     just --fmt --check
 

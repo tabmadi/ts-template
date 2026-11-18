@@ -1,4 +1,4 @@
-// Project settings for Zed, per ADR-0100. Zed loads the Nix dev shell through direnv, so every
+// Project settings for Zed, per ADR-0105. Zed loads the Nix dev shell through direnv, so every
 // formatter and language server below is the pinned version from flake.nix. Zed formats on save
 // only with a formatter of the repo, so its result matches `just format`. The repo has no
 // .editorconfig, so the indentation and whitespace rules for typing are here.

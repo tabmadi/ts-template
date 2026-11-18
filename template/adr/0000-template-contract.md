@@ -32,7 +32,7 @@ The sample code shows the structure, not a feature set. A project replaces the s
 
 A dependency added here is a dependency of every project. So the template adds one only when the template itself needs it.
 
-Its project ADRs are [ADR-0000](../../docs/adr/0000-foundations.md), [ADR-0001](../../docs/adr/0001-documentation-conventions.md), and [ADR-0100](../../docs/adr/0100-toolchain.md).
+Its project ADRs are listed in [the ADR index](../../docs/adr/README.md).
 
 ## Consequences
 

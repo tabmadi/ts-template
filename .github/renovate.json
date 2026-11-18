@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":semanticCommits", ":dependencyDashboard"],
   "description": [
-    "Dependency updates, per ADR-0100. Renovate opens the pull request, and the CI gate decides. It merges nothing.",
+    "Dependency updates, per ADR-0102. Renovate opens the pull request, and the CI gate decides. It merges nothing.",
     "The nix manager and the weekly lock file maintenance keep flake.lock current, so no pin goes stale."
   ],
   "labels": ["dependencies"],

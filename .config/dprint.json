@@ -1,4 +1,4 @@
-// The formatter of JSON, JSONC, TOML, and YAML, per ADR-0100. The dprint wrapper in flake.nix
+// The formatter of JSON, JSONC, TOML, and YAML, per ADR-0104. The dprint wrapper in flake.nix
 // passes this path and the plugins, because dprint takes both only as flags.
 {
   "json": { "indentWidth": 2, "useTabs": false, "newLineKind": "lf" },

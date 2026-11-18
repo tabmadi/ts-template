@@ -1,4 +1,4 @@
-# The toolchain, the git hooks, and the checks, per ADR-0100. The tabnix module holds every shared
+# The toolchain, the git hooks, and the checks, per ADR-0100 and ADR-0110. The tabnix module holds every shared
 # part, and this file adds the TypeScript parts.
 {
   description = "A TypeScript application on Bun with Biome and a strict tsconfig";
@@ -35,7 +35,7 @@
         { pkgs, inputs', ... }:
         let
           bun2nix = inputs'.bun2nix.packages.default;
-          # Biome finds its config in .config/ only through this flag, per ADR-0100.
+          # Biome finds its config in .config/ only through this flag, per ADR-0110.
           biomeConfig = "--config-path .config";
 
           # A check runs on the tracked files with the locked node_modules of bun.lock.
