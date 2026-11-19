@@ -38,16 +38,11 @@ body:
         - Opera
     validations:
       required: false
-  - type: dropdown
+  - type: input
     id: os
     attributes:
-      label: Operating System
-      description: The operating system you use.
-      options:
-        - Windows
-        - macOS
-        - Linux
-        - Other
+      label: Linux distribution
+      description: The distribution and its version, such as NixOS 26.05. Linux is the one supported platform.
     validations:
       required: true
   - type: textarea

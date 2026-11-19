@@ -19,7 +19,7 @@ A repo can also hold more than one language, ship artifacts, or run its own mach
 1. **Exact.** One lock pins each tool and every library under it, on every machine and in CI.
 2. **One mechanism.** The same tool pins the dev tools, builds the artifacts, and describes the machines.
 3. **Same checks everywhere.** A check runs the same way on a laptop and in CI, from the files that git tracks.
-4. **Native.** Linux and macOS run the tools directly, with no container or VM in the daily loop.
+4. **Native.** Linux runs the tools directly, with no container or VM in the daily loop.
 5. **Packages.** The package set holds the tools of every language that a project can use.
 
 ## Considered options
@@ -29,7 +29,7 @@ A repo can also hold more than one language, ship artifacts, or run its own mach
 | Option | 1 Exact | 2 One mechanism | 3 Same checks | 4 Native | 5 Packages | Verdict |
 | --- | --- | --- | --- | --- | --- | --- |
 | A version manager, such as mise or asdf | Versions only. A tool links against the libraries of the machine | Tools only | No sandbox | Yes | Yes | Rejected on driver 1 |
-| Dev Containers | Only when the image is built from pins | Tools only | Yes | A container on macOS and in the editor | Yes | Rejected on drivers 2 and 4 |
+| Dev Containers | Only when the image is built from pins | Tools only | Yes | A container in the daily loop and in the editor | Yes | Rejected on drivers 2 and 4 |
 | devbox, Flox, or devenv | Yes, through Nix | Nix underneath, behind a second config | Partly | Yes | The Nix set | Rejected. Each adds a layer with its own config on top of Nix |
 | pixi | Yes, through conda-forge | Tools and environments, no machines | No sandbox | Yes | conda-forge | Rejected on drivers 2 and 3 |
 | Guix | Yes | Yes | Yes | Linux only | Smaller than the Nix set | Rejected on drivers 4 and 5 |
@@ -92,7 +92,7 @@ A repo uses the layers of Nix that its kind needs:
 
 ## Consequences
 
-- Every engineer installs Nix and enables flakes. Nix runs on Linux and macOS, and on Windows only inside WSL.
+- Every engineer runs Linux, on x86-64 or ARM, and installs Nix with flakes. Linux is the one supported platform, as Zed is the one supported editor. A person on macOS or WSL owns any gap.
 - The first `nix develop` downloads every tool. Each later run reuses the store.
 - CI downloads every tool on each run unless the workflow has a binary cache.
 - A change to a shared hook or check reaches the repo only when the tabnix input moves to a new tag.
@@ -100,6 +100,7 @@ A repo uses the layers of Nix that its kind needs:
 
 ## Rules
 
+- Linux, on x86-64 and ARM, is the one supported platform. No file works around another one.
 - Every tool comes from the dev shell of `flake.nix`, never from a second version manager.
 - `flake.lock` is committed. Renovate updates it, and the CI gate decides.
 - Every check is a derivation under `checks` in `flake.nix`. `(CI: ci)`
