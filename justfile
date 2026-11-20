@@ -76,6 +76,10 @@ check: lint test
 ci:
     nix flake check --print-build-logs
 
+# Push what CI built to the binary cache, per ADR-0101. Without NIX_CACHE_URL it does nothing
+cache-push: in-shell
+    nix-cache-push
+
 [private]
 in-shell:
     @test -n "${IN_NIX_SHELL:-}" || { echo "Enter the dev shell first: run nix develop, or allow direnv." >&2; exit 1; }
