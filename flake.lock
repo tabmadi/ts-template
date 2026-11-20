@@ -214,11 +214,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1794529892,
-        "narHash": "sha256-m5iXk3ILiCuRpCgqYWNiGVFmu8YLh2FNxxaZj/Auc10=",
+        "lastModified": 1795106485,
+        "narHash": "sha256-cK+o/P3zE/1GW68p0URGGaI0mx8fAj2EAyG9CNmOII0=",
         "owner": "microvm-nix",
         "repo": "microvm.nix",
-        "rev": "194a254693f49af939a2b53d04982bd4b276fdb3",
+        "rev": "d70265960646e506757f8364e8585c17a06050e7",
         "type": "github"
       },
       "original": {
@@ -358,16 +358,16 @@
         "tablint": "tablint"
       },
       "locked": {
-        "lastModified": 1795133966,
-        "narHash": "sha256-8vSbJiG7l8eZF9F07xVQ2Ze9dh+6C4E94tvfZCoFxYE=",
+        "lastModified": 1795143579,
+        "narHash": "sha256-Ecfv+c8WXzkif9/Imfl6/rGaVOsvQtOo42hziGmKy0I=",
         "owner": "tabmadi",
         "repo": "tabnix",
-        "rev": "8daf50ad81e4964551760c6c9b27125c2a6fea8a",
+        "rev": "cf420b5f1a405b63ddd03873442988375f19068b",
         "type": "github"
       },
       "original": {
         "owner": "tabmadi",
-        "ref": "v0.8.0",
+        "ref": "v0.9.0",
         "repo": "tabnix",
         "type": "github"
       }
