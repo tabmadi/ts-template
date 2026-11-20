@@ -34,7 +34,11 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           TITLE: ${{ github.event.pull_request.title }}
-        run: nix develop --command cog --config .config/cog.toml verify "$TITLE"
+        # cog prints the author of the message, so it needs a git identity, and a runner has none.
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          nix develop --command cog --config .config/cog.toml verify "$TITLE"
       - run: nix develop --command just ci
       # A push to master stores what the job built, so the next job downloads it instead of building it.
       - name: Push to the binary cache
