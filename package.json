@@ -11,8 +11,8 @@
     "check": "just check"
   },
   "devDependencies": {
-    "@types/bun": "^1.4.4",
-    "typescript": "^5"
+    "@types/bun": "^1.4.5",
+    "typescript": "^7"
   },
   "packageManager": "bun@1.4.5"
 }
