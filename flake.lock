@@ -358,16 +358,16 @@
         "tablint": "tablint"
       },
       "locked": {
-        "lastModified": 1795155040,
-        "narHash": "sha256-VMAhVSvTqN/5/5RKqB/io5CoTGxPBP6YxpyAdH4Fimk=",
+        "lastModified": 1795225444,
+        "narHash": "sha256-CxLkXojgmS/Al7/wKDJ4zwvrNr0Ow5Nyk8ArXjwoHhE=",
         "owner": "tabmadi",
         "repo": "tabnix",
-        "rev": "120b5b497aed30ec7aecb022efe3e68a6b8be4b0",
+        "rev": "ac31a50f722a97b77ccdcaf7e4d798f1f611d4f3",
         "type": "github"
       },
       "original": {
         "owner": "tabmadi",
-        "ref": "v0.9.1",
+        "ref": "v0.10.0",
         "repo": "tabnix",
         "type": "github"
       }
