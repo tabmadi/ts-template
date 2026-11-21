@@ -1,53 +1,32 @@
 name: Documentation Improvement
 description: Suggest a change to the documentation
-title: "docs: "
 labels: ["documentation"]
 assignees: []
 
 body:
-  - type: dropdown
-    id: doc-type
+  - type: markdown
     attributes:
-      label: Documentation Type
-      description: The type of documentation to improve.
-      options:
-        - README
-        - API Documentation
-        - Code Comments
-        - Examples and Tutorials
-        - Installation Instructions
-        - Configuration Guide
-        - Other, described below
-    validations:
-      required: true
+      value: Use a plain title that names the gap, such as `Setup guide omits the cache variables`.
   - type: input
     id: location
     attributes:
-      label: Documentation Location
-      description: The URL or file path of the documentation to improve.
+      label: Location
+      description: The URL or file path of the documentation.
       placeholder: README.md or https://github.com/user/repo/blob/main/docs/guide.md
-    validations:
-      required: true
-  - type: textarea
-    id: current-state
-    attributes:
-      label: Current State
-      description: What the documentation says now, or what it does not say.
-      placeholder: The documentation has no information about
     validations:
       required: true
   - type: textarea
     id: improvement
     attributes:
-      label: Suggested Improvement
-      description: The change you suggest.
-      placeholder: I suggest adding or changing
+      label: What needs to improve
+      description: What is wrong or missing, and the change that you suggest.
+      placeholder: The guide does not name the cache variables. Add them to the setup steps.
     validations:
       required: true
   - type: textarea
     id: additional-context
     attributes:
-      label: Additional Context
+      label: Additional context
       description: Add any other information about the change here.
     validations:
       required: false

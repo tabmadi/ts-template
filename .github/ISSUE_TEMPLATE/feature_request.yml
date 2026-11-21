@@ -1,34 +1,50 @@
 name: Feature Request
 description: Suggest an idea for this project
-title: "feat: "
 labels: ["enhancement"]
 assignees: []
 
 body:
-  - type: textarea
-    id: summary
+  - type: markdown
     attributes:
-      label: Feature Summary
-      description: A short description of the feature you propose
-      placeholder: I would like to see
+      value: Use a plain title that names the outcome, such as `Operators can export the audit log`.
+  - type: input
+    id: audience
+    attributes:
+      label: Who needs this
+      description: The person or team that needs the change.
+      placeholder: Operators
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: The problem that they have today.
+      placeholder: Operators cannot keep a copy of the audit log.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What they can do when the change is done.
+      placeholder: Operators can download the audit log as a file.
     validations:
       required: true
   - type: textarea
     id: acceptance-criteria
     attributes:
-      label: Acceptance Criteria
-      description: The criteria that the feature must meet to be complete.
+      label: Acceptance criteria
+      description: The checks that show the change is complete, if you know them.
       placeholder: |
         - When I do an action
         - Then I see a result
-        - And when I do another action
-        - Then another result happens
     validations:
-      required: true
+      required: false
   - type: textarea
     id: context
     attributes:
       label: Additional context
-      description: Add any other information, screenshots, or mockups about the feature here.
+      description: Add any other information, screenshots, or mockups here.
     validations:
       required: false

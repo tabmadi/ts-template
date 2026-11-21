@@ -1,16 +1,26 @@
 name: Bug Report
 description: Report a bug
-title: "fix: "
 labels: ["bug", "triage"]
 assignees: []
 
 body:
+  - type: markdown
+    attributes:
+      value: Use a plain title that names the problem, such as `Console shows a blank page after sign-in`.
   - type: textarea
     id: what-happened
     attributes:
       label: What happened
-      description: Describe what happened, and what you expected to happen.
-      placeholder: Describe what you see.
+      description: Describe the behavior that you observed.
+      placeholder: The page stays blank after I sign in.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What you expected
+      description: Describe the behavior that you expected.
+      placeholder: The console opens after I sign in.
     validations:
       required: true
   - type: textarea
@@ -21,28 +31,7 @@ body:
       placeholder: |
         1. Go to the page
         2. Click the control
-        3. Scroll down
-        4. See the error
-    validations:
-      required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: The browsers that show the problem, if any
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-        - Opera
-    validations:
-      required: false
-  - type: input
-    id: os
-    attributes:
-      label: Linux distribution
-      description: The distribution and its version, such as NixOS 26.05. Linux is the one supported platform.
+        3. See the error
     validations:
       required: true
   - type: textarea
@@ -51,8 +40,12 @@ body:
       label: Relevant log output
       description: Paste any relevant log output. It is formatted as code, so do not add backticks.
       render: shell
+    validations:
+      required: false
   - type: textarea
     id: additional-context
     attributes:
       label: Additional context
-      description: Add any other information about the problem here.
+      description: Add the version, the environment, or other information that helps.
+    validations:
+      required: false

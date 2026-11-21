@@ -81,6 +81,10 @@ Before the first push, `cog check` checks every commit. After it, `cog check` ch
 
 CI also checks the pull request title with `cog`, because the title becomes the squash commit. The title reaches the shell only through an environment variable. The squash commit is the title alone, with no body, like every other commit. The project setup sets this on the forge.
 
+**An issue title is plain language.** It names the problem or the outcome, such as `Console shows a blank page after sign-in`. An issue can close without a pull request, so its title is not a commit title. The issue forms set the kind of request through labels. An agent that files an issue through a CLI or an API uses the fields and labels of the matching form.
+
+The pull request template asks for a summary, the checks that the author ran with their results, and the related issue.
+
 **CI can read and write a binary cache.** The repository variables `NIX_CACHE_URL` and `NIX_CACHE_PUBLIC_KEY` add a cache as a substituter, so a job downloads the paths that an earlier job built. After `just ci` on a push to `master`, `just cache-push` uploads the paths that the job built, with the OIDC token of the job. The push never fails the gate. Without the variables, the cache settings are empty, and the gate runs as before. The tabnix module holds the cache server and the push.
 
 ## Consequences
@@ -94,6 +98,8 @@ CI also checks the pull request title with `cog`, because the title becomes the 
 - The git hooks are declared in `flake.nix`, through tabnix.
 - Commit messages and pull request titles follow Conventional Commits with the types in `.config/cog.toml`. `(ref: Conventional Commits 1.0.0)`
 - A commit message is a title only, with no body. The squash commit of a pull request is its title only.
+- An issue title is plain language, with no Conventional Commits prefix. An issue filed through a CLI or an API uses the fields and labels of the matching form.
+- A pull request states its verification, and uses `Closes #123` when it resolves an issue.
 - `just ci` is the only gate step after setup. A push to the binary cache may follow it, and never fails the job. `(CI: ci)`
 - A binary cache is turned on by repository variables, never by a value in a committed file.
 - A workflow never puts event text, such as a pull request title, directly into a `run` script. `(CI: ci)`
