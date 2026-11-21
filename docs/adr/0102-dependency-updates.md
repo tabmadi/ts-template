@@ -37,7 +37,8 @@ Renovate opens each pull request, the CI gate decides, and Renovate merges nothi
 
 ## Consequences
 
-- Renovate needs its GitHub app on the repo. Without it, the pins go stale.
+- Renovate needs its GitHub app on the repo, or a scheduled workflow with a token. Without one of them, the pins go stale.
+- A repo with `bun.nix` uses the workflow, because the app runs no command of the repo.
 - A failing update stays open until someone fixes the code or closes it.
 
 ## Rules

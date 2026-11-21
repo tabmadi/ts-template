@@ -1,0 +1,33 @@
+# Dependency updates, per ADR-0102. Renovate opens the pull requests and merges nothing.
+name: renovate
+
+on:
+  schedule:
+    # Monday 03:00 UTC, inside the schedule of .github/renovate.json.
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      # A token that can open a pull request whose checks run. The job token cannot. A repository without it skips the run.
+      RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
+      RENOVATE_PLATFORM: github
+      RENOVATE_REPOSITORIES: ${{ github.repository }}
+      RENOVATE_CONFIG_FILE: .config/renovate.json
+    steps:
+      - if: env.RENOVATE_TOKEN != ''
+        uses: actions/checkout@v7.0.1
+      - if: env.RENOVATE_TOKEN != ''
+        uses: cachix/install-nix-action@v32.0.0
+      - if: env.RENOVATE_TOKEN != ''
+        run: nix develop --command just ci-renovate

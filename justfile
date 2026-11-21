@@ -25,6 +25,10 @@ bun-nix: in-shell
     bun2nix -o bun.nix
     nixfmt bun.nix
 
+# Run Renovate over this repository, per ADR-0102. The renovate workflow calls it
+ci-renovate: in-shell
+    nix run --inputs-from . nixpkgs#renovate
+
 # Run the tests
 test: in-shell
     bun test

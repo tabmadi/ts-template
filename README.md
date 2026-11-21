@@ -130,7 +130,7 @@ Then follow these steps:
    gh api -X PATCH repos/OWNER/REPO -f squash_merge_commit_title=PR_TITLE -f squash_merge_commit_message=BLANK -F allow_merge_commit=false -F allow_rebase_merge=false
    ```
 
-10. Install the [Renovate app](https://github.com/apps/renovate) on the new repository.
+10. Add a `RENOVATE_TOKEN` repository secret. The `renovate` workflow uses it to open update pull requests.
 
 ### With the GitHub template button
 
