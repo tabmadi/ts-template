@@ -71,15 +71,15 @@ Sources:
 
 | When | What runs |
 | --- | --- |
-| Commit | The `pre-commit` hook runs the fast checks on the staged files. The `commit-msg` hook runs `cog verify` |
-| Push | The `pre-push` hook runs `cog check` on the new commits, and `just ci` |
+| Commit | The `pre-commit` hook runs the fast checks on the staged files. The `commit-msg` hook runs `cog verify` and rejects a message with a body |
+| Push | The `pre-push` hook runs `cog check` on the new commits, rejects a commit with a body, and runs `just ci` |
 | CI | The workflow runs `just ci` inside `nix develop`, on every push to `master` and on every pull request |
 
 tabnix declares the hooks, and entering the dev shell installs them. Each hook calls its tool by its Nix store path.
 
 Before the first push, `cog check` checks every commit. After it, `cog check` checks only the commits that the push adds, so older history can predate the convention.
 
-CI also checks the pull request title with `cog`, because the title becomes the squash commit. The title reaches the shell only through an environment variable.
+CI also checks the pull request title with `cog`, because the title becomes the squash commit. The title reaches the shell only through an environment variable. The squash commit is the title alone, with no body, like every other commit. The project setup sets this on the forge.
 
 **CI can read and write a binary cache.** The repository variables `NIX_CACHE_URL` and `NIX_CACHE_PUBLIC_KEY` add a cache as a substituter, so a job downloads the paths that an earlier job built. After `just ci` on a push to `master`, `just cache-push` uploads the paths that the job built, with the OIDC token of the job. The push never fails the gate. Without the variables, the cache settings are empty, and the gate runs as before. The tabnix module holds the cache server and the push.
 
@@ -93,6 +93,7 @@ CI also checks the pull request title with `cog`, because the title becomes the 
 
 - The git hooks are declared in `flake.nix`, through tabnix.
 - Commit messages and pull request titles follow Conventional Commits with the types in `.config/cog.toml`. `(ref: Conventional Commits 1.0.0)`
+- A commit message is a title only, with no body. The squash commit of a pull request is its title only.
 - `just ci` is the only gate step after setup. A push to the binary cache may follow it, and never fails the job. `(CI: ci)`
 - A binary cache is turned on by repository variables, never by a value in a committed file.
 - A workflow never puts event text, such as a pull request title, directly into a `run` script.

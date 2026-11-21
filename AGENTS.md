@@ -6,6 +6,7 @@ This guide is for any coding agent that works in this repo. `AGENTS.md` is the o
 
 ## Read first
 
+- A new copy starts with the steps in `Starting a project` in `README.md`. Delete this line when they are done.
 - If a `template/` folder exists, read `template/AGENTS.md` before anything else.
 - [ADR-0000](docs/adr/0000-foundations.md): the layout, the TypeScript conventions, and the recipe contract.
 - [docs/adr/README.md](docs/adr/README.md): the ADR index. To check a convention, grep the `Rules` sections first.

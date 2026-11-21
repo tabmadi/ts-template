@@ -5,8 +5,8 @@
 [global]
 # Prose is not hard-wrapped, per ADR-0001, and a column limit conflicts with that.
 disable = ["MD013"]
-# The pull request template is a GitHub form body and has no title heading.
-exclude = ["**/CHANGELOG.md", ".github/PULL_REQUEST_TEMPLATE.md"]
+# The pull request template and the squash message are forge inputs with no title heading.
+exclude = ["**/CHANGELOG.md", ".github/PULL_REQUEST_TEMPLATE.md", ".forgejo/default_merge_message/**"]
 
 [MD004]
 style = "dash"

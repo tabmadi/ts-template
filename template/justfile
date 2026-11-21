@@ -8,4 +8,6 @@ lint-scope:
 init:
     @nix eval --raw ".#templates.default.welcomeText"
     git rm -r --quiet template
-    @echo "Removed template/. Commit the removal, then follow the steps above."
+    sed -i '/^- A new copy starts with the steps/d' AGENTS.md
+    git add AGENTS.md
+    @echo "Removed template/ and the setup line of AGENTS.md. Follow Starting a project in README.md."
