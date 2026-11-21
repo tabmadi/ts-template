@@ -24,6 +24,8 @@ jobs:
       RENOVATE_PLATFORM: github
       RENOVATE_REPOSITORIES: ${{ github.repository }}
       RENOVATE_CONFIG_FILE: .config/renovate.json
+      # The noreply address of the repository owner, so a copy of this repo signs with its own owner.
+      RENOVATE_GIT_AUTHOR: "Renovate <${{ github.repository_owner_id }}+${{ github.repository_owner }}@users.noreply.github.com>"
     steps:
       - if: env.RENOVATE_TOKEN != ''
         uses: actions/checkout@v7.0.1
