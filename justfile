@@ -84,6 +84,9 @@ ci:
 cache-push: in-shell
     nix-cache-push
 
+# Write the files that follow a dependency change, per ADR-0102
+deps-sync: bun-nix
+
 [private]
 in-shell:
     @test -n "${IN_NIX_SHELL:-}" || { echo "Enter the dev shell first: run nix develop, or allow direnv." >&2; exit 1; }

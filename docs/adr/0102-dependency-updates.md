@@ -33,12 +33,14 @@ Sources:
 
 `.github/renovate.json` turns on the nix manager and the weekly lock file maintenance. Every pull request comes before 6 a.m. on Monday. A major version comes alone. Minor and patch updates of the pinned inputs and the Actions come in one pull request.
 
+A weekly `renovate` workflow runs Renovate in the dev shell, with the `RENOVATE_TOKEN` secret. After each update, `just deps-sync` writes the files that follow the dependencies, so the pull request can pass the gate.
+
 Renovate opens each pull request, the CI gate decides, and Renovate merges nothing.
 
 ## Consequences
 
-- Renovate needs its GitHub app on the repo, or a scheduled workflow with a token. Without one of them, the pins go stale.
-- A repo with `bun.nix` uses the workflow, because the app runs no command of the repo.
+- Each repo needs the `RENOVATE_TOKEN` secret. Without it, the workflow skips the run, and the pins go stale.
+- The token has an end date, so someone replaces it before that date.
 - A failing update stays open until someone fixes the code or closes it.
 
 ## Rules

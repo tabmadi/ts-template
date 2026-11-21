@@ -2,12 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-global-schema.json",
   "description": [
     "The renovate workflow reads this file through RENOVATE_CONFIG_FILE, per ADR-0102.",
-    "Each update writes bun.nix again, so the pull request can pass the gate."
+    "After each update, `just deps-sync` writes the files that follow the dependencies."
   ],
   "binarySource": "global",
-  "allowedCommands": ["^just bun-nix$"],
+  "allowedCommands": ["^just deps-sync$"],
   "postUpgradeTasks": {
-    "commands": ["just bun-nix"],
+    "commands": ["just deps-sync"],
     "executionMode": "branch"
   }
 }
