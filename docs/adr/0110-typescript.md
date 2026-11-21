@@ -85,4 +85,4 @@ Sources:
 - A Biome rule is disabled by name with a reason in `.config/biome.json`. `(CI: lint-ts)`
 - Every Biome call passes `--config-path .config`, and the config excludes `.config` from its files.
 - `bun.nix` matches `bun.lock` in every commit.
-- The Bun version of `flake.nix` and `packageManager` in `package.json` are the same.
+- The Bun version of `flake.nix` and `packageManager` in `package.json` are the same. `(CI: ci)`

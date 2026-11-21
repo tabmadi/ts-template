@@ -38,7 +38,7 @@ Sources:
 | --- | --- | --- | --- | --- |
 | A reviewer only | Yes, slowly and unevenly | No | None | Rejected on driver 4 |
 | Vale, with custom YAML styles | Word lists and patterns. A rule on the shape of an ADR, a rule index, or a recipe name needs code outside Vale | Yes | A community maintains the engine, and the repo writes its styles | Rejected. Most rules here are not word patterns |
-| **tablint, from the tabnix module** | **Every rule of this ADR, with the ADR shape, the index, and the recipe names** | **Yes, as a hook and the `lint-prose` check** | **The owner maintains the whole tool** | **Chosen. The cost is its upkeep. A rule that Vale can hold is a reason to revisit** |
+| **tabrules** | **Every rule of this ADR, with the ADR shape, the index, and the recipe names** | **Yes, as a hook and the `lint-prose` check** | **One maintainer keeps the tool, and a change to this ADR replaces it** | **Chosen. The cost is its upkeep. A rule that Vale can hold is a reason to revisit** |
 
 Sources:
 
@@ -136,7 +136,7 @@ A number is part of a decision only when doubling it would change the decision.
 | `requirements.md` | What the code does, next to the code. Behaviour across modules is in `docs/requirements/` |
 | `README.md` at the root | What the repo is, who it is for, and how to start |
 
-**Behaviour is written as requirements.** When a repo states what its code does, each requirement is one [EARS](https://alistairmavin.com/ears/) sentence with an ID, in a table row. A requirement exists only when a test cites its ID, and tablint checks the trace. Each kind of text answers one question:
+**Behaviour is written as requirements.** When a repo states what its code does, each requirement is one [EARS](https://alistairmavin.com/ears/) sentence with an ID, in a table row. A requirement exists only when a test cites its ID, and tabrules checks the trace. Each kind of text answers one question:
 
 | Text | Answers |
 | --- | --- |
@@ -191,7 +191,7 @@ These comments are never committed:
 
 ## Consequences
 
-tablint checks most rules of this ADR: the profile, the punctuation, the banned constructs, the comment rules, and the shape of each ADR. Review is the gate for the rest, such as one idea per sentence.
+tabrules checks most rules of this ADR: the profile, the punctuation, the banned constructs, the comment rules, and the shape of each ADR. Review is the gate for the rest, such as one idea per sentence.
 
 ## Rules
 

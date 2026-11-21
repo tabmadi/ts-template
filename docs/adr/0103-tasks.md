@@ -55,6 +55,6 @@ A recipe that calls a tool stops outside the dev shell, so no tool comes from `$
 
 ## Rules
 
-- Every task is a `just` recipe with a doc comment. A recipe that calls a tool runs only inside the dev shell.
+- Every task is a `just` recipe with a doc comment. A recipe that calls a tool runs only inside the dev shell. `(CI: lint-prose)`
 - The recipes `setup`, `format`, `lint`, `test`, `check`, and `ci` exist, and their names do not change.
 - `just check` passes before a change is finished.

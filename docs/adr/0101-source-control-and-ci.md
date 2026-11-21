@@ -96,5 +96,5 @@ CI also checks the pull request title with `cog`, because the title becomes the 
 - A commit message is a title only, with no body. The squash commit of a pull request is its title only.
 - `just ci` is the only gate step after setup. A push to the binary cache may follow it, and never fails the job. `(CI: ci)`
 - A binary cache is turned on by repository variables, never by a value in a committed file.
-- A workflow never puts event text, such as a pull request title, directly into a `run` script.
+- A workflow never puts event text, such as a pull request title, directly into a `run` script. `(CI: ci)`
 - A secret never enters a commit. `(CI: lint-secrets)`

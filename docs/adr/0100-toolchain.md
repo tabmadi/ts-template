@@ -97,6 +97,7 @@ A repo uses the layers of Nix that its kind needs:
 - CI downloads every tool on each run unless the workflow has a binary cache.
 - A change to a shared hook or check reaches the repo only when the tabnix input moves to a new tag.
 - A tool update from `nixpkgs-unstable` can fail the gate. The lock keeps the old version until the update passes.
+- Replacing tabnix takes a new ADR and a `flake.nix` without the import.
 
 ## Rules
 
