@@ -84,10 +84,12 @@ Every repo uses these terms with one meaning. A repo names only the environments
 | `local` | The environment on the machine of one engineer. Each engineer has one, and recreates it freely | development environment |
 | inner loop | The tier of `local` for daily work. The code under change runs natively, and stand-ins can replace what does not change | inner loop |
 | full tier | The tier of `local` that runs the configuration of the deployed environments, with only the local values | production-like ephemeral environment |
-| CI | The checks after a push. They run the same `just ci` as the machine of the engineer | outer loop |
+| CI | The checks after a push. They include the same `just ci` that runs on the machine of the engineer | outer loop |
 | `dev` | The first deployed environment, which the team shares | development, integration |
 | `staging` | The deployed environment that rehearses each release of `prod` | pre-production |
 | `prod` | The environment that real users reach | production |
+
+No external standard fixes these words. [Google](https://abseil.io/resources/swe-book/html/ch11.html), [Fowler](https://martinfowler.com/bliki/IntegrationTest.html), and [Martin](https://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html) give different meanings to terms such as `integration test` and `functional test`. So these repos keep one [ubiquitous language](https://martinfowler.com/bliki/UbiquitousLanguage.html), and the last column maps it to other names. A word with a second sense carries a qualifier, such as `local tier` or `CI gate`.
 
 ### Punctuation
 

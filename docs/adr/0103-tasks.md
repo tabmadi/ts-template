@@ -41,8 +41,8 @@ Every task is a recipe in `justfile`, with a doc comment that `just --list` show
 | `format` | Applies every formatter |
 | `lint` | Runs every linter |
 | `test` | Runs the tests |
-| `check` | Runs `lint` and `test`. It is the fast gate before a change is finished |
-| `ci` | Runs `nix flake check`. It is exactly what CI runs |
+| `check` | Runs `lint`, `test`, and `build` if the repo has a build. It is the fast gate before a change is finished |
+| `ci` | Runs `nix flake check`, which every push must pass. A repo can add slower CI jobs beside it |
 
 A repo adds recipes for its own jobs. The six names above always exist, and their names do not change.
 
