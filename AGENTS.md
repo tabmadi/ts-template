@@ -19,7 +19,7 @@ Every text follows the Simple English profile in [ADR-0001](docs/adr/0001-docume
 - In prose, use only period, comma, colon, and the possessive apostrophe. No em dash, semicolon, parentheses, or `?`.
 - No emoji, no contractions, and no `e.g.` or `etc.`
 - No chronology, intensifiers, hedges, or planned work. State what is true now.
-- `just lint-prose` checks these rules with tabrules.
+- `just lint-prose` checks these rules with tabkit.
 
 ## Working in the repo
 

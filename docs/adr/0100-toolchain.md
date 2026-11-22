@@ -1,7 +1,7 @@
 # ADR-0100: Toolchain
 
 - **Status:** Accepted
-- **Decides:** Nix with flakes pins every tool and runs every check, through the shared tabnix module, and the repo follows `nixpkgs-unstable`.
+- **Decides:** Nix with flakes pins every tool and runs every check, through the shared tabkit module, and the repo follows `nixpkgs-unstable`.
 
 ## Context
 
@@ -58,7 +58,7 @@ Sources:
 | A plain flake | No. Each output is written for each system | Only by copy | Rejected |
 | flake-utils | It loops over systems only | Only by copy | Rejected |
 | A copy of the shared Nix code in each repo | Not applicable | A copy drifts, and a fix reaches no other repo | Rejected |
-| **flake-parts, with the tabnix module pinned by a tag** | **Yes, a module system** | **Yes. A fix reaches each repo with a new tag** | **Chosen** |
+| **flake-parts, with the tabkit module pinned by a tag** | **Yes, a module system** | **Yes. A fix reaches each repo with a new tag** | **Chosen** |
 
 Sources:
 
@@ -73,7 +73,7 @@ Sources:
 
 ## Decision
 
-`flake.nix` imports the tabnix module, which holds the shared dev shell, git hooks, and checks. The repo adds only its own tools. `flake.lock` pins `nixpkgs` and every other input, so every engineer, CI run, and machine gets the same tools.
+`flake.nix` imports the tabkit module, which holds the shared dev shell, git hooks, and checks. The repo adds only its own tools. `flake.lock` pins `nixpkgs` and every other input, so every engineer, CI run, and machine gets the same tools.
 
 `nixpkgs` follows `nixpkgs-unstable`. A repo selects a major line by attribute, and the lock fixes the patch version. A version that `nixpkgs` does not have comes from an overlay in `flake.nix`.
 
@@ -95,9 +95,9 @@ A repo uses the layers of Nix that its kind needs:
 - Every engineer runs Linux, on x86-64 or ARM, and installs Nix with flakes. Linux is the one supported platform, as Zed is the one supported editor. A person on macOS or WSL owns any gap.
 - The first `nix develop` downloads every tool. Each later run reuses the store.
 - CI downloads every tool on each run unless the workflow has a binary cache.
-- A change to a shared hook or check reaches the repo only when the tabnix input moves to a new tag.
+- A change to a shared hook or check reaches the repo only when the tabkit input moves to a new tag.
 - A tool update from `nixpkgs-unstable` can fail the gate. The lock keeps the old version until the update passes.
-- Replacing tabnix takes a new ADR and a `flake.nix` without the import.
+- Replacing tabkit takes a new ADR and a `flake.nix` without the import.
 
 ## Rules
 
@@ -105,4 +105,4 @@ A repo uses the layers of Nix that its kind needs:
 - Every tool comes from the dev shell of `flake.nix`, never from a second version manager.
 - `flake.lock` is committed. Renovate updates it, and the CI gate decides.
 - Every check is a derivation under `checks` in `flake.nix`. `(CI: ci)`
-- The shared Nix code comes from the tabnix module at a tag, never from a copy.
+- The shared Nix code comes from the tabkit module at a tag, never from a copy.

@@ -23,7 +23,7 @@ Two formatters for one file type undo each other's changes. A formatter with no 
 | --- | --- | --- | --- | --- |
 | Biome, Taplo, and yamlfmt | Three tools and three configs | Yes | Biome only through a flag, which it does not support | Rejected on driver 3 |
 | Prettier | One tool | Needs Node.js | Yes | Rejected on driver 4 |
-| **dprint with its plugins** | **One tool and one config** | **Yes, with WebAssembly plugins from `nixpkgs`** | **Through the wrapper in tabnix** | **Chosen** |
+| **dprint with its plugins** | **One tool and one config** | **Yes, with WebAssembly plugins from `nixpkgs`** | **Through the wrapper in tabkit** | **Chosen** |
 
 Sources:
 
@@ -56,7 +56,7 @@ Sources:
 | Option | Finds event text in a `run` script | Noise on a thin workflow | Verdict |
 | --- | --- | --- | --- |
 | zizmor | Yes | Many audits outside this rule | Rejected. Its other audits are a separate decision |
-| **actionlint** | **Yes** | **None on this repo** | **Chosen. The `lint-workflows` check of tabnix runs it** |
+| **actionlint** | **Yes** | **None on this repo** | **Chosen. The `lint-workflows` check of tabkit runs it** |
 
 Sources:
 
@@ -71,7 +71,7 @@ An ADR can state a rule that no language linter holds, such as a rule across two
 | Review only | Not enforced | None | Yes | Rejected. A rule that can be checked is checked |
 | A script for each rule | Yes | One script for each rule, and each repo keeps a copy | Yes | Rejected. The copies drift |
 | Semgrep or ast-grep rules | One file at a time | A rule file for each rule | Yes | A repo uses one where a single-file pattern holds the rule |
-| **tabrules** | **Yes** | **Only `.config/tabrules.toml`** | **Yes. A change to this ADR replaces it** | **Chosen** |
+| **tabkit** | **Yes** | **Only `.config/tabkit.toml`** | **Yes. A change to this ADR replaces it** | **Chosen** |
 
 Sources:
 
@@ -95,21 +95,21 @@ Every tool config lives in `.config/`. A file that its tool reads only at the ro
 | Tool | How it finds its config in `.config/` |
 | --- | --- |
 | rumdl | By itself |
-| gitleaks | An environment variable that tabnix sets |
+| gitleaks | An environment variable that tabkit sets |
 | cog | `--config` in every recipe, hook, and workflow |
-| dprint | The wrapper in tabnix |
-| tabrules | By itself |
+| dprint | The wrapper in tabkit |
+| tabkit | By itself |
 
 The `just` recipes are the only supported way to run a tool. A tool that someone runs by hand without its flag is outside this contract.
 
 ## Consequences
 
-- dprint takes its config and plugins only as flags, so tabnix wraps the `dprint` command to add both.
-- A rule that tabrules enforces is turned off or reconfigured in `.config/tabrules.toml` in the same commit as the change to its ADR.
+- dprint takes its config and plugins only as flags, so tabkit wraps the `dprint` command to add both.
+- A rule that tabkit enforces is turned off or reconfigured in `.config/tabkit.toml` in the same commit as the change to its ADR.
 - A tool that reads its config only at the root breaks the layout. Such a tool keeps its config at the root, and the ADR of its language names the exception.
 
 ## Rules
 
-- A change to an ADR whose rule tabrules enforces also changes `.config/tabrules.toml` in the same commit.
+- A change to an ADR whose rule tabkit enforces also changes `.config/tabkit.toml` in the same commit.
 - Every tracked text format has one formatter in the dev shell and a check in `flake.nix`. `(CI: ci)`
 - A file that a person reads or runs is visible at the root. Every tool config lives in `.config/`, unless its tool reads it only at the root.
