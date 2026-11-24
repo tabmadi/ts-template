@@ -1,7 +1,7 @@
 # ADR-0100: Toolchain
 
 - **Status:** Accepted
-- **Decides:** Nix with flakes pins every tool and runs every check, through the shared tabkit module, and the repo follows `nixpkgs-unstable`.
+- **Decides:** Nix with flakes pins every tool and runs every check through tabkit, with the tools on `nixpkgs-unstable` and NixOS machines on stable NixOS.
 
 ## Context
 
@@ -75,7 +75,7 @@ Sources:
 
 `flake.nix` imports the tabkit module, which holds the shared dev shell, git hooks, and checks. The repo adds only its own tools. `flake.lock` pins `nixpkgs` and every other input, so every engineer, CI run, and machine gets the same tools.
 
-`nixpkgs` follows `nixpkgs-unstable`. A repo selects a major line by attribute, and the lock fixes the patch version. A version that `nixpkgs` does not have comes from an overlay in `flake.nix`.
+`nixpkgs` follows `nixpkgs-unstable`. A repo selects a major line by attribute, and the lock fixes the patch version. A repo that declares NixOS machines adds a second input for the current stable release, such as `nixos-26.05`, and builds every machine from it. A version that `nixpkgs` does not have comes from an overlay in `flake.nix`.
 
 An engineer enters the dev shell with `nix develop`, or with direnv through `.envrc`.
 
@@ -106,3 +106,4 @@ A repo uses the layers of Nix that its kind needs:
 - `flake.lock` is committed. Renovate updates it, and the CI gate decides.
 - Every check is a derivation under `checks` in `flake.nix`. `(CI: ci)`
 - The shared Nix code comes from the tabkit module at a tag, never from a copy.
+- A NixOS machine builds from the current stable NixOS release, never from `nixpkgs-unstable`.
