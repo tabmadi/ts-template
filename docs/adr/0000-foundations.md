@@ -53,7 +53,7 @@ Sources:
 
 ## Decision
 
-This repo is a TypeScript application on the Bun runtime.
+This repo is a TypeScript application on the Node.js runtime.
 
 | Path | Holds |
 | --- | --- |
@@ -63,7 +63,7 @@ This repo is a TypeScript application on the Bun runtime.
 | `bun.lock` | The locked dependency set |
 | `bun.nix` | The same set for Nix, written from `bun.lock`, per [ADR-0110](0110-typescript.md) |
 
-**Bun runs TypeScript directly.** There is no build step and no `dist/`.
+**Node.js runs TypeScript directly.** It strips the types, so there is no build step and no `dist/`.
 
 **Configuration is read in one place.** `src/config.ts` validates the configuration once at startup. No other module reads `process.env`.
 
@@ -102,7 +102,7 @@ A source can change after the ADR cites it. A reader who finds that a cited fact
 
 ## Rules
 
-- Application code lives under `src/`. Tests live under `src/__tests__/` and use `bun:test`.
+- Application code lives under `src/`. Tests live under `src/__tests__/` and use Vitest.
 - Only `src/config.ts` reads environment variables.
 - Dependencies change through `bun add` and `bun remove`, and `just bun-nix` writes `bun.nix` in the same change. Neither lock file is edited by hand.
 - No `any` and no `@ts-ignore`. A required cast is narrowed and carries a comment. `(CI: lint-ts)`

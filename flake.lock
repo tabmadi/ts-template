@@ -266,21 +266,24 @@
         "git-hooks": "git-hooks",
         "microvm": "microvm",
         "niks3": "niks3",
+        "nixos-stable": [
+          "nixpkgs"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1795351278,
-        "narHash": "sha256-yfU9K6Oi2qLKvXiMPe6HTgw6bs+QL9Io9og7RWGmjbo=",
+        "lastModified": 1795493795,
+        "narHash": "sha256-bCe3ne5G6xdYv6esSwPFuGX8rsPuYr/Vn3q4h9TIA2o=",
         "owner": "tabmadi",
         "repo": "tabkit",
-        "rev": "0304b97741fb9d6fa8c3e09ca65080fe16248b85",
+        "rev": "c643fbc32ecb0753d3540a9a9c7cc8fe1909adb5",
         "type": "github"
       },
       "original": {
         "owner": "tabmadi",
-        "ref": "v0.19.0",
+        "ref": "v0.20.0",
         "repo": "tabkit",
         "type": "github"
       }

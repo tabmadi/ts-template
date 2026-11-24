@@ -1,7 +1,7 @@
 # The toolchain, the git hooks, and the checks, per ADR-0100 and ADR-0110. The tabkit module holds every shared
 # part, and this file adds the TypeScript parts.
 {
-  description = "A TypeScript application on Bun with Biome and a strict tsconfig";
+  description = "A TypeScript application on Node.js with Biome and a strict tsconfig";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -11,9 +11,11 @@
     };
     # A new version is a new tag here.
     tabkit = {
-      url = "github:tabmadi/tabkit/v0.19.0";
+      url = "github:tabmadi/tabkit/v0.20.0";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      # Only the own checks of tabkit read this input, so it adds no second nixpkgs here.
+      inputs.nixos-stable.follows = "nixpkgs";
     };
   };
 
@@ -21,7 +23,7 @@
     inputs@{ flake-parts, tabkit, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       # The template scope adds its own checks and outputs. A copy has no template/ folder, so it adds nothing.
-      # The bun module of tabkit holds Bun, bun2nix, the hook for bun.nix, and the check helper.
+      # The bun module of tabkit holds Bun as the installer, bun2nix, the hook for bun.nix, and the check helper.
       imports = [
         tabkit.flakeModules.default
         tabkit.flakeModules.bun
@@ -32,11 +34,14 @@
         { pkgs, config, ... }:
         let
           inherit (config.tabkit.bun) check;
+          # Node.js runs the app and the tests, per ADR-0110.
+          nodejs = pkgs.nodejs_26;
           # Biome finds its config in .config/ only through this flag, per ADR-0110.
           biomeConfig = "--config-path .config";
         in
         {
           tabkit.packages = [
+            nodejs
             pkgs.biome
             pkgs.typescript-language-server
           ];
@@ -48,11 +53,13 @@
             files = "\\.(ts|tsx|js|jsx)$";
           };
 
+          tabkit.bun.tools = [ nodejs ];
+
           checks.lint-ts = check "lint-ts" [ pkgs.biome ] ''
             biome ci ${biomeConfig} --error-on-warnings .
             bun run tsc --noEmit
           '';
-          checks.test = check "test" [ ] "bun test";
+          checks.test = check "test" [ ] "node node_modules/vitest/vitest.mjs run";
         };
     };
 }

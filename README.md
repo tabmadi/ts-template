@@ -1,12 +1,14 @@
 # TypeScript Template
 
-A template for a TypeScript application on the Bun runtime. Bun runs TypeScript with no build step, Biome lints and formats, and the `tsconfig` is strict. It starts from [github-project-template](https://github.com/tabmadi/github-project-template), so it has the same hooks, CI gate, and documentation convention.
+A template for a TypeScript application on the Node.js runtime. Node.js runs TypeScript with no build step, Biome lints and formats, and the `tsconfig` is strict. It starts from [github-project-template](https://github.com/tabmadi/github-project-template), so it has the same hooks, CI gate, and documentation convention.
 
 ## Stack
 
 | Tool | Owns |
 | --- | --- |
-| [Bun](https://bun.sh) | The runtime, install, and tests |
+| [Node.js](https://nodejs.org) | The runtime |
+| [Bun](https://bun.sh) | Install only |
+| [Vitest](https://vitest.dev) | Tests |
 | [TypeScript](https://www.typescriptlang.org) | The type check |
 | [Biome](https://biomejs.dev) | Lint and format |
 | [Nix](https://nixos.org) with flakes | Tool versions, the dev shell, and the sandboxed checks |
@@ -59,7 +61,7 @@ Open the folder in Zed, and run `direnv allow` once. Zed suggests its Nix extens
 | `just bun-nix` | Writes `bun.nix` again from `bun.lock`. Run it after each dependency change |
 | `just format` | Applies every formatter and every safe lint fix |
 | `just lint` | Runs every linter: `lint-ts`, `lint-prose`, `lint-md`, `lint-secrets`, `lint-data`, `lint-nix`, and `lint-just` |
-| `just test` | Runs the tests |
+| `just test` | Runs the tests on Vitest |
 | `just check` | Runs `lint` and `test`. Run it before you finish a change |
 | `just ci` | Runs `nix flake check`, exactly what CI runs: the tests and every linter. The `pre-push` hook runs it too |
 

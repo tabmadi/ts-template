@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import { type Config, ConfigError, DEFAULT_PORT, load } from "../config.ts";
 
 // The environment variables have upper-case names, so the tests build them from pairs.

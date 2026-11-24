@@ -1,13 +1,18 @@
-import { afterAll, describe, expect, it } from "bun:test";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { createLogger } from "../log.ts";
-import { startServer } from "../server.ts";
+import { type Server, startServer } from "../server.ts";
 
 describe("routes", () => {
-	const server = startServer(
-		0,
-		createLogger("error", () => undefined),
-	);
-	const base = `http://127.0.0.1:${server.port}`;
+	let server: Server;
+	let base: string;
+
+	beforeAll(async () => {
+		server = await startServer(
+			0,
+			createLogger("error", () => undefined),
+		);
+		base = `http://127.0.0.1:${server.port}`;
+	});
 
 	afterAll(async () => {
 		await server.stop();

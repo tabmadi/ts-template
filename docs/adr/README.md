@@ -12,6 +12,6 @@ Each ADR has a one-sentence **Decides** line and ends with a flat **Rules** sect
 | [0103](0103-tasks.md) | `just` runs every task, and the recipe names `setup`, `format`, `lint`, `test`, `check`, and `ci` are a contract |
 | [0104](0104-formatters-and-linters.md) | One formatter for each tracked file type, each with a check, and every tool config in `.config/` |
 | [0105](0105-editor.md) | Zed is the supported editor, with committed project settings, and no check depends on an editor |
-| [0110](0110-typescript.md) | Bun runs, installs, and tests the TypeScript code, Biome lints and formats it, and bun2nix gives the checks the locked dependencies |
+| [0110](0110-typescript.md) | Node.js runs and tests the TypeScript code, Bun only installs, Biome lints and formats it, and bun2nix gives the checks the locked dependencies |
 
 A new ADR starts from [`_template.md`](_template.md).

@@ -14,11 +14,11 @@ setup:
 
 # Run the app and reload on change
 dev: in-shell
-    bun --watch run src/index.ts
+    node --watch src/index.ts
 
 # Run the app
 start: in-shell
-    bun run src/index.ts
+    node src/index.ts
 
 # Write bun.nix again from bun.lock. Run it after each dependency change
 bun-nix: in-shell
@@ -29,9 +29,9 @@ bun-nix: in-shell
 ci-renovate: in-shell
     nix run --inputs-from . nixpkgs#renovate
 
-# Run the tests
-test: in-shell
-    bun test
+# Run the tests on Vitest, per ADR-0110
+test *args: in-shell
+    node node_modules/vitest/vitest.mjs run {{ args }}
 
 # Biome with warnings as errors, and the TypeScript compiler
 lint-ts: in-shell

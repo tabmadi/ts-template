@@ -1,43 +1,54 @@
 # ADR-0110: TypeScript
 
 - **Status:** Accepted
-- **Decides:** Bun runs, installs, and tests the TypeScript code, Biome lints and formats it, and bun2nix gives the checks the locked dependencies.
+- **Decides:** Node.js runs and tests the TypeScript code, Bun only installs, Biome lints and formats it, and bun2nix gives the checks the locked dependencies.
 
 ## Context
 
-The shared toolchain of [ADR-0100](0100-toolchain.md) holds no language. This ADR adds the tools of TypeScript: the runtime, the linter and the formatter, the test runner, and how Nix gets the dependencies of `bun.lock`.
+The shared toolchain of [ADR-0100](0100-toolchain.md) holds no language. This ADR adds the tools of TypeScript: the runtime, the package manager and the test runner, the linter and the formatter, and how Nix gets the dependencies of `bun.lock`.
 
 ## Decision drivers
 
 1. **No build step.** The runtime runs TypeScript directly.
-2. **Few tools.** One tool for each job, and one tool for several jobs where it can.
-3. **Stable.** The tool has a stable release.
-4. **Pinned.** The tool comes from `nixpkgs`, and a check gets the locked dependencies without network.
+2. **Complete runtime.** The runtime implements the standard modules that a server needs, including TLS.
+3. **Fast loop.** Install and tests take seconds.
+4. **Stable.** The tool has a stable release.
+5. **Pinned.** The tool comes from `nixpkgs`, and a check gets the locked dependencies without network.
 
 ## Considered options
 
-### The runtime, the package manager, and the test runner
+### The runtime
 
-| Option | 1 No build step | 2 Few tools | Verdict |
+| Option | 1 No build step | 2 Complete runtime | Verdict |
 | --- | --- | --- | --- |
-| Node.js with npm and Vitest | Type stripping only, with limits on TypeScript syntax | Three tools | Rejected on drivers 1 and 2 |
-| Deno | Yes | The fewest tools: one binary runs, installs, formats, lints, tests, and checks types | Rejected, narrowly. Its linter has fewer rules than Biome, and Nix has no mature builder for `deno.lock` yet. It is the first candidate to revisit |
-| **Bun** | **Yes** | **One tool: runtime, install, and `bun:test`** | **Chosen** |
+| Bun | Yes | No. A Bun HTTPS server does not expose the client certificate of a request | Rejected on driver 2 |
+| Deno | Yes | Yes | Rejected. Nix has no mature builder for `deno.lock` |
+| **Node.js 26, the Active LTS line since October 2026** | **Yes. It strips the types, so the code uses only erasable syntax** | **Yes** | **Chosen** |
 
 Sources:
 
-- [Bun](https://bun.sh/docs), [Node.js TypeScript support](https://nodejs.org/api/typescript.html).
-- The built-in tools of Deno: [Deno lint and format](https://docs.deno.com/runtime/lint_and_format/).
-- Biome has more than 500 rules: [Biome v2.5](https://biomejs.dev/blog/biome-v2-5/).
+- [Node.js TypeScript support](https://nodejs.org/api/typescript.html), [Bun](https://bun.sh/docs).
 - Nix tools for Deno are community projects, and the builder of `nixpkgs` was reverted once: [Packaging Deno applications](https://discourse.nixos.org/t/packaging-deno-applications/15441).
+
+### The package manager and the test runner
+
+| Option | 3 Fast loop | Verdict |
+| --- | --- | --- |
+| npm or pnpm, with Vitest | Slower install | Rejected on driver 3 |
+| Bun, with `bun:test` | Yes | Rejected. Tests would run on another runtime than the app |
+| **Bun as the installer, with Vitest on Node.js** | **Yes** | **Chosen. Tests run on the runtime of the app** |
+
+Sources:
+
+- [Bun install](https://bun.sh/docs/cli/install), [Vitest](https://vitest.dev/guide/).
 
 ### The linter and the formatter
 
-| Option | 2 Few tools | 3 Stable | Verdict |
-| --- | --- | --- | --- |
-| ESLint and Prettier | Two tools, two configs, and a graph of plugins | Yes | Rejected on driver 2 |
-| oxlint and oxfmt | Two tools | oxlint 1.0 since June 2025. oxfmt is in beta | Rejected on driver 3. It stays the next candidate |
-| **Biome** | **One tool and one config** | **Yes** | **Chosen** |
+| Option | 4 Stable | Verdict |
+| --- | --- | --- |
+| ESLint and Prettier | Yes, but two tools, two configs, and a graph of plugins | Rejected. One tool covers both jobs |
+| oxlint and oxfmt | oxlint 1.0 since June 2025. oxfmt is in beta | Rejected on driver 4 |
+| **Biome** | **Yes** | **Chosen** |
 
 Sources:
 
@@ -45,10 +56,10 @@ Sources:
 
 ### The dependencies in Nix
 
-| Option | 4 Pinned | Verdict |
+| Option | 5 Pinned | Verdict |
 | --- | --- | --- |
-| A fixed-output derivation that runs `bun install` | One hash for all of `node_modules`. Each dependency change breaks the hash | Rejected. The hash tells nothing about what changed |
-| **bun2nix, which writes `bun.nix` from `bun.lock`** | **One hash for each package, read from the lock** | **Chosen** |
+| A fixed-output derivation that runs `bun install` | One hash for all of `node_modules` | Rejected. The hash tells nothing about what changed |
+| **bun2nix, which writes `bun.nix` from `bun.lock`** | **One hash for each package** | **Chosen** |
 
 Sources:
 
@@ -56,7 +67,9 @@ Sources:
 
 ## Decision
 
-Bun runs TypeScript directly. There is no build step and no `dist/`. The dev shell takes `bun` from `nixpkgs`, and `packageManager` in `package.json` names the same version.
+Node.js runs TypeScript directly. It strips the types, so there is no build step and no `dist/`. The code uses only syntax that Node.js can strip, and `erasableSyntaxOnly` in `tsconfig.json` makes `tsc` enforce it. Vitest runs the tests on Node.js, with at most two workers. Bun only installs the dependencies.
+
+The dev shell takes Bun from tabkit and `nodejs_26` from `nixpkgs`. `packageManager` in `package.json` names the same Bun version.
 
 Biome is both the linter and the formatter, for TypeScript and JavaScript only. It runs with warnings as errors. dprint keeps JSON, per [ADR-0104](0104-formatters-and-linters.md).
 
@@ -76,12 +89,16 @@ Sources:
 
 ## Consequences
 
+- `enum`, `namespace`, and parameter properties are not available. A union of string literals or a plain object replaces each.
 - The Bun version is in two places: the dev shell of `flake.nix` and `packageManager` in `package.json`. A change updates both.
+- Vitest uses more memory than `bun:test`. The limit of two workers keeps the suite small.
 - A dependency change also changes `bun.nix`. `just bun-nix` writes it, and the hook fails until it matches `bun.lock`.
-- A Bun release can change behaviour that Node.js defines differently. The tests run on Bun, so they catch it.
 
 ## Rules
 
+- Node.js runs the app and the tests. Bun only installs.
+- The code uses only TypeScript syntax that Node.js can strip. `(CI: lint-ts)`
+- Vitest runs with at most two workers.
 - A Biome rule is disabled by name with a reason in `.config/biome.json`. `(CI: lint-ts)`
 - Every Biome call passes `--config-path .config`, and the config excludes `.config` from its files.
 - `bun.nix` matches `bun.lock` in every commit.

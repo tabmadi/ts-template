@@ -25,7 +25,8 @@ Every text follows the Simple English profile in [ADR-0001](docs/adr/0001-docume
 
 - Work inside the dev shell: run `nix develop`, or allow direnv. Then run every task as `just <recipe>`. A bare `bun` or `biome` outside the shell resolves from `PATH` at an unpinned version.
 - Biome owns lint and format for TypeScript. Run `just format`, and never format by hand. A direct `biome` call needs `--config-path .config`.
-- Bun runs TypeScript directly. There is no build step.
+- Node.js runs TypeScript directly, and Vitest runs the tests. Bun only installs. There is no build step.
+- Write only TypeScript syntax that Node.js can strip: no `enum`, no `namespace`, and no parameter properties. `tsc` enforces it.
 - After `bun add` or `bun remove`, run `just bun-nix` and commit `bun.nix` with `bun.lock`.
 - Before you finish a change, run `just check`. `just ci` runs the full sandboxed gate that CI runs.
 - Commit messages are a Conventional Commits title only, with no body. Never push unless asked to.

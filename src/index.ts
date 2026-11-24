@@ -19,10 +19,9 @@ function readConfig(): Config {
 
 const config = readConfig();
 const logger = createLogger(config.logLevel);
-const server = startServer(config.port, logger);
+const server = await startServer(config.port, logger);
 logger.info("listening", { port: server.port });
 
-// The server stops accepting connections, and the open requests finish.
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.on(signal, async () => {
 		await server.stop();

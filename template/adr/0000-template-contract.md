@@ -5,7 +5,7 @@
 
 ## Context
 
-This repo is a template for a TypeScript application on Bun. A project made from it copies its files, and the copies do not link back. So every sentence in a copied file must stay true in the project. A sentence that names the template or another repo turns false in the copy.
+This repo is a template for a TypeScript application on Node.js. A project made from it copies its files, and the copies do not link back. So every sentence in a copied file must stay true in the project. A sentence that names the template or another repo turns false in the copy.
 
 This repo starts from [github-project-template](https://github.com/tabmadi/github-project-template) and adds the TypeScript toolchain. The [blueprints](https://github.com/tabmadi/blueprints) repo keeps the templates of the same size in step.
 

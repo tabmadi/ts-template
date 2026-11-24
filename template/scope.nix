@@ -8,7 +8,7 @@
       "github\\.com/tabmadi"
       "blueprints"
     ];
-    description = "A TypeScript application on Bun with Biome and a strict tsconfig, and no build step";
+    description = "A TypeScript application on Node.js with Biome and a strict tsconfig, and no build step";
     welcomeText = ''
       # A new project
 
