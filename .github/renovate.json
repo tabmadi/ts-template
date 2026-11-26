@@ -5,7 +5,7 @@
     "Dependency updates, per ADR-0102. Renovate opens the pull request, and the CI gate decides. It merges nothing.",
     "The nix manager and the weekly lock file maintenance keep flake.lock current, so no pin goes stale."
   ],
-  "labels": ["dependencies"],
+  "labels": ["kind/dependencies"],
   "rangeStrategy": "pin",
   "separateMajorMinor": true,
   "schedule": ["before 6am on monday"],

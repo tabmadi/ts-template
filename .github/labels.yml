@@ -1,0 +1,35 @@
+# The labels of every repo, per ADR-0101. `just labels` makes the labels of the forge match this file and
+# .github/labels.extra.yml, which holds the labels of this repo alone. `aliases` lists old names that a sync renames.
+- name: kind/bug
+  color: d73a4a
+  description: Something does not work as documented
+  aliases: [bug]
+- name: kind/feature
+  color: a2eeef
+  description: A new capability, or a change to one
+  aliases: [enhancement]
+- name: kind/docs
+  color: 0075ca
+  description: A change to the documentation only
+  aliases: [documentation]
+- name: kind/dependencies
+  color: 0366d6
+  description: An update of a dependency
+  aliases: [dependencies]
+- name: status/triage
+  color: fbca04
+  description: New, and nobody has reviewed it yet
+  aliases: [triage]
+- name: status/undecided
+  color: c5def5
+  description: Not decided yet. Do not start work on it
+  aliases: [WIP]
+- name: status/blocked
+  color: b60205
+  description: Waits on another issue or on a person
+- name: priority/high
+  color: e11d21
+  description: Do it before the other open work
+- name: priority/low
+  color: c2e0c6
+  description: Do it when no more important work is open

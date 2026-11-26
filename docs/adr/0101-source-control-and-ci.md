@@ -1,7 +1,7 @@
 # ADR-0101: Source control and CI
 
 - **Status:** Accepted
-- **Decides:** The git hooks, the commit convention and its check, the secret scan, and the CI gate.
+- **Decides:** The git hooks, the commit convention and its check, the secret scan, the labels, and the CI gate.
 
 ## Context
 
@@ -83,6 +83,16 @@ CI also checks the pull request title with `cog`, because the title becomes the 
 
 **An issue title is plain language.** It names the problem or the outcome, such as `Console shows a blank page after sign-in`. An issue can close without a pull request, so its title is not a commit title. The issue forms set the kind of request through labels. An agent that files an issue through a CLI or an API uses the fields and labels of the matching form.
 
+**The labels are a committed file.** `.github/labels.yml` holds the labels that every repo shares, in three scopes:
+
+| Scope | Says | Labels |
+| --- | --- | --- |
+| `kind/` | What the work is | `bug`, `feature`, `docs`, `dependencies` |
+| `status/` | Where the issue stands | `triage`, `undecided`, `blocked` |
+| `priority/` | What comes first | `high`, `low` |
+
+A repo adds its own labels in `.github/labels.extra.yml`, such as an `area/` scope. `just labels` makes the labels of the forge match both files and deletes every other label. A label that is not in a file does not exist. The issue forms set `kind/` and `status/triage`, and Renovate sets `kind/dependencies`.
+
 The pull request template asks for a summary, the checks that the author ran with their results, and the related issue.
 
 **CI can read and write a binary cache.** The repository variables `NIX_CACHE_URL` and `NIX_CACHE_PUBLIC_KEY` add a cache as a substituter, so a job downloads the paths that an earlier job built. After `just ci` on a push to `master`, `just cache-push` uploads the paths that the job built, with the OIDC token of the job. The push never fails the gate. Without the variables, the cache settings are empty, and the gate runs as before. The tabkit module holds the cache server and the push.
@@ -98,6 +108,7 @@ The pull request template asks for a summary, the checks that the author ran wit
 - The git hooks are declared in `flake.nix`, through tabkit.
 - Commit messages and pull request titles follow Conventional Commits with the types in `.config/cog.toml`. `(ref: Conventional Commits 1.0.0)`
 - A commit message is a title only, with no body. The squash commit of a pull request is its title only.
+- The labels of a repo are `.github/labels.yml` and `.github/labels.extra.yml`. No label exists on the forge that is not in them.
 - An issue title is plain language, with no Conventional Commits prefix. An issue filed through a CLI or an API uses the fields and labels of the matching form.
 - A pull request states its verification, and uses `Closes #123` when it resolves an issue.
 - `just ci` is the only gate step after setup. A push to the binary cache may follow it, and never fails the job. `(CI: ci)`

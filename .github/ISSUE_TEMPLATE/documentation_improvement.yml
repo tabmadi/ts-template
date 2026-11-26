@@ -1,6 +1,6 @@
 name: Documentation Improvement
 description: Suggest a change to the documentation
-labels: ["documentation"]
+labels: ["kind/docs", "status/triage"]
 assignees: []
 
 body:

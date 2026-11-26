@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a bug
-labels: ["bug", "triage"]
+labels: ["kind/bug", "status/triage"]
 assignees: []
 
 body:

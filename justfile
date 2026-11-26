@@ -84,6 +84,10 @@ ci:
 cache-push: in-shell
     nix-cache-push
 
+# Make the labels of the forge match .github/labels.yml, per ADR-0101. It deletes every other label
+labels: in-shell
+    tabkit-labels --prune
+
 # Write the files that follow a dependency change, per ADR-0102
 deps-sync: bun-nix
 
