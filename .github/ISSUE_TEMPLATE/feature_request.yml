@@ -19,7 +19,7 @@ body:
     id: problem
     attributes:
       label: Problem
-      description: The problem that they have today.
+      description: Describe the problem and what it stops them from doing.
       placeholder: Operators cannot keep a copy of the audit log.
     validations:
       required: true
@@ -34,11 +34,9 @@ body:
   - type: textarea
     id: acceptance-criteria
     attributes:
-      label: Acceptance criteria
-      description: The checks that show the change is complete, if you know them.
-      placeholder: |
-        - When I do an action
-        - Then I see a result
+      label: Done when
+      description: Describe how to check the result, if you know.
+      placeholder: An operator can open the downloaded file and find the audit events shown in the console.
     validations:
       required: false
   - type: textarea

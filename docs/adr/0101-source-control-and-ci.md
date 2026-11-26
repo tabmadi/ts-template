@@ -1,7 +1,7 @@
 # ADR-0101: Source control and CI
 
 - **Status:** Accepted
-- **Decides:** The git hooks, the commit convention and its check, the secret scan, the labels, and the CI gate.
+- **Decides:** The git hooks, commit checks, secret scan, issue conventions, labels, and CI gate.
 
 ## Context
 
@@ -10,6 +10,8 @@ A check that runs only in CI fails after the push, when the author has moved on.
 A commit history with free-form messages has no reliable type. A release tool and a reviewer then read each message by hand.
 
 A secret in a commit stays in the history after a later commit removes it.
+
+People in different roles use the same tracker to make different decisions, per a [study of issue tracking](https://amy.voida.com/wp-content/uploads/2013/04/issueTracking-cscw10.pdf). GitLab checks that readers can understand the problem and expected result, per its [refinement checklist](https://handbook.gitlab.com/handbook/engineering/devops/verify/pipeline-execution/#checklist-for-refining-issues).
 
 ## Decision drivers
 
@@ -83,11 +85,13 @@ CI also checks the pull request title with `cog`, because the title becomes the 
 
 **An issue title is plain language.** It names the problem or the outcome, such as `Console shows a blank page after sign-in`. An issue can close without a pull request, so its title is not a commit title. The issue forms set the kind of request through labels. An agent that files an issue through a CLI or an API uses the fields and labels of the matching form.
 
+Issue forms ask for the context and expected result in Simple English, per [ADR-0001](0001-documentation-conventions.md). Reporters can leave the finish check for the team to write during refinement.
+
 **The labels are a committed file.** `.github/labels.yml` holds the labels that every repo shares, in three scopes:
 
 | Scope | Says | Labels |
 | --- | --- | --- |
-| `kind/` | What the work is | `bug`, `feature`, `docs`, `dependencies` |
+| `kind/` | What the work is | `bug`, `feature`, `docs`, `dependencies`, `maintenance` |
 | `status/` | Where the issue stands | `triage`, `undecided`, `blocked` |
 | `priority/` | What comes first | `high`, `low` |
 
@@ -110,6 +114,8 @@ The pull request template asks for a summary, the checks that the author ran wit
 - A commit message is a title only, with no body. The squash commit of a pull request is its title only.
 - The labels of a repo are `.github/labels.yml` and `.github/labels.extra.yml`. No label exists on the forge that is not in them.
 - An issue title is plain language, with no Conventional Commits prefix. An issue filed through a CLI or an API uses the fields and labels of the matching form.
+- An issue opens with what needs to change, who it affects, and why it matters. Technical details follow.
+- A scheduled issue states how the team checks that the work is done.
 - A pull request states its verification, and uses `Closes #123` when it resolves an issue.
 - `just ci` is the only gate step after setup. A push to the binary cache may follow it, and never fails the job. `(CI: ci)`
 - A binary cache is turned on by repository variables, never by a value in a committed file.

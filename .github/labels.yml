@@ -12,6 +12,9 @@
 - name: kind/dependencies
   color: "0366d6"
   description: An update of a dependency
+- name: kind/maintenance
+  color: "bfdadc"
+  description: A change that helps the team run or maintain the project
 - name: status/triage
   color: "fbca04"
   description: New, and nobody has reviewed it yet

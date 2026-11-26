@@ -1,0 +1,32 @@
+name: Maintenance
+description: Improve how the project runs or is maintained
+labels: ["kind/maintenance", "status/triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: Use a plain title that names the problem or result, such as `Check that backups can be restored`.
+  - type: textarea
+    id: need
+    attributes:
+      label: Why this work matters
+      description: Describe what needs to change, who it affects, and what problem or risk it addresses.
+      placeholder: Operators need to check that a backup can restore service after a database failure.
+    validations:
+      required: true
+  - type: textarea
+    id: done-when
+    attributes:
+      label: Done when
+      description: Describe how to check the result, if you know.
+      placeholder: A restore drill brings the service back within the agreed recovery time.
+    validations:
+      required: false
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Technical notes
+      description: Add files, logs, or details about the change that may help.
+    validations:
+      required: false

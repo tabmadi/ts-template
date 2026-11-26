@@ -11,15 +11,15 @@ body:
     id: what-happened
     attributes:
       label: What happened
-      description: Describe the behavior that you observed.
-      placeholder: The page stays blank after I sign in.
+      description: Describe what happened, who it affects, and what it stops them from doing.
+      placeholder: After sign-in, operators see a blank page and cannot check pending orders.
     validations:
       required: true
   - type: textarea
     id: expected-behavior
     attributes:
       label: What you expected
-      description: Describe the behavior that you expected.
+      description: Describe what should happen. The team uses this result to check the fix.
       placeholder: The console opens after I sign in.
     validations:
       required: true
