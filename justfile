@@ -78,7 +78,7 @@ check: lint test
 
 # Run exactly what CI runs: every check of flake.nix, in the Nix sandbox
 ci:
-    nix flake check --print-build-logs
+    nix flake check --print-build-logs --max-jobs auto
 
 # Push what CI built to the binary cache, per ADR-0101. Without NIX_CACHE_URL it does nothing
 cache-push: in-shell

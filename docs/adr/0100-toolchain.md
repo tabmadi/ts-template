@@ -81,6 +81,8 @@ An engineer enters the dev shell with `nix develop`, or with direnv through `.en
 
 Every check is a derivation under `checks` in `flake.nix`. `nix flake check` builds each one in the Nix sandbox from the files that git tracks. So a local change that git does not track cannot make a check pass.
 
+Nix builds one derivation at a time unless its config says otherwise. `just ci` passes `--max-jobs auto`, so the checks build in parallel, one job for each core. The setting lives in the repo, so every laptop and every runner gets it without a change to its own Nix config.
+
 A repo uses the layers of Nix that its kind needs:
 
 | Kind of repo | Builds its artifacts with Nix | Declares its machines with NixOS |
@@ -105,5 +107,6 @@ A repo uses the layers of Nix that its kind needs:
 - Every tool comes from the dev shell of `flake.nix`, never from a second version manager.
 - `flake.lock` is committed. Renovate updates it, and the CI gate decides.
 - Every check is a derivation under `checks` in `flake.nix`. `(CI: ci)`
+- `just ci` builds the checks in parallel with `--max-jobs auto`.
 - The shared Nix code comes from the tabkit module at a tag, never from a copy.
 - A NixOS machine builds from the current stable NixOS release, never from `nixpkgs-unstable`.
